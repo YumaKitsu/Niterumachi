@@ -10,5 +10,6 @@ class ApiConfig(AppConfig):
     ML_MODEL_FILE = os.path.join(settings.ML_MODEL, 'clustering_result.joblib')
     ml_model = joblib.load(ML_MODEL_FILE)
 
+
   
 

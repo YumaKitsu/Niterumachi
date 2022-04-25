@@ -1,6 +1,8 @@
 from django.urls import path
-from .views import Clustering
+from rest_framework import routers
+from .views import KMeansViewSet
 
-urlpatterns = [
-    path('result/', Clustering.as_view(), name='clustering')
-]
+router = routers.DefaultRouter()
+router.register(r'result', KMeansViewSet)
+
+urlpatterns = router.urls
