@@ -6,3 +6,4 @@ class KMeansSerializer(ModelSerializer):
     class Meta:
         model = KMeans
         fields = ['prefecture', 'city', 'habitable_area', 'forest_area', 'cluster']
+        read_only_fields = ['habitable_area', 'forest_area', 'cluster']

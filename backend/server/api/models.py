@@ -1,3 +1,4 @@
+from re import A
 from django.db import models
 from .apps import ApiConfig
 
@@ -16,6 +17,8 @@ class KMeans(models.Model):
 
     def __str__(self) -> str:
         return f'{self.prefecture} {self.city}'
+
+
 
 
 # for (key, value) in ApiConfig.ml_model.items():
