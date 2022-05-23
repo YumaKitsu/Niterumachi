@@ -5,5 +5,5 @@ from .models import KMeans
 class KMeansSerializer(ModelSerializer):
     class Meta:
         model = KMeans
-        fields = ['prefecture', 'city', 'habitable_area', 'forest_area', 'cluster']
-        read_only_fields = ['habitable_area', 'forest_area', 'cluster']
+        fields = '__all__'
+        read_only_fields = [fields]
