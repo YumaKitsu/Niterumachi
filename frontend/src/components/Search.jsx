@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { TextField, Grid, Typography, Button } from "@mui/material";
+import { TextField, Grid, Button } from "@mui/material";
 
 const PREFECTURES = [
   "北海道",
@@ -62,14 +62,17 @@ const Search = () => {
   const [selectedCities, setSelectedCities] = useState([]);
 
   useEffect(() => {
-    getData();
-  }, []);
+    const fetchData = async () => {
+      const api = await fetch(
+        `http://127.0.0.1:8000/api/result/?pref=${searchPref.prefOfOrigin}`
+      );
+      const data = await api.json();
+      setSelectedCities(data.results);
+    };
 
-  const getData = async () => {
-    const api = await fetch("http://127.0.0.1:8000/api/result");
-    const data = await api.json();
-    setPrefData(data.results);
-  };
+    fetchData()
+     .catch(console.error);
+  }, [searchPref.prefOfOrigin]);
 
   const changeHandler = (e) => {
     const { name, value } = e.target;
@@ -77,18 +80,12 @@ const Search = () => {
       ...previousData,
       [name]: value,
     }));
-
-    setSelectedCities(() => {
-      return prefData.filter((prefObj) => prefObj.prefecture === value)
-    }
-    );
-    e.preventDefault();
   };
 
   const clickHandler = async (e) => {
     e.preventDefault();
     const api = await fetch(
-      `http://127.0.0.1:8000/api/result/?search=${searchPref.currentPref}`
+      `http://127.0.0.1:8000/api/result/?pref=${searchPref.currentPref}`
     );
     const data = await api.json();
     setPrefData(data.results);
@@ -106,16 +103,8 @@ const Search = () => {
         width: 610,
         height: 445,
         padding: "20px",
-        borderRadius: "12px",
-        backgroundColor: "#fafafa",
       }}
     >
-      <Grid item alignSelf="center">
-        <Typography variant="h4" fontWeight="bold">
-          似ている市町村を探す
-        </Typography>
-      </Grid>
-
       <Grid item alignSelf="center">
         <TextField
           select
@@ -140,16 +129,15 @@ const Search = () => {
         <TextField
           select
           id="origin-of-city"
-          label="◯◯市/町/村"
           name="cityOfOrigin"
           sx={{ width: 300 }}
           SelectProps={{
             native: true,
           }}
         >
-          {selectedCities.map((city) => (
-            <option key={city} value={city}>
-              {city}
+          {selectedCities.map((prefObj) => (
+            <option key={prefObj.id} value={prefObj.city}>
+              {prefObj.city} {prefObj.ward}
             </option>
           ))}
         </TextField>
@@ -163,7 +151,9 @@ const Search = () => {
           SelectProps={{
             native: true,
           }}
-          sx={{ width: 300 }}
+          sx={{
+            width: 300,
+          }}
         >
           {PREFECTURES.map((pref) => (
             <option key={pref} value={pref}>
@@ -174,8 +164,14 @@ const Search = () => {
         </TextField>
       </Grid>
       <Grid item alignSelf="center">
-        <Button variant="contained" color="primary" onClick={clickHandler}>
-          探す
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={clickHandler}
+          size="large"
+          sx={{ p: "1rem" }}
+        >
+          Search
         </Button>
       </Grid>
     </Grid>

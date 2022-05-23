@@ -1,10 +1,10 @@
 import React from "react";
-import { Grid, Typography, Box, Button } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Grid, Box, Typography } from "@mui/material";
+import Search from '../components/Search'
 
-import Illustration from "../assets/images/homepage_image.svg";
+import SearchImage from "../assets/images/search_page_image.svg";
 
-const Home = () => {
+const Predict = () => {
   return (
     <Grid
       container
@@ -12,6 +12,7 @@ const Home = () => {
         margin: "auto",
         maxWidth: "100%",
         height: "auto",
+        backgroundColor: 'secondary'
       }}
     >
       <Grid
@@ -20,7 +21,7 @@ const Home = () => {
         spacing={15}
         flexDirection="row-reverse"
         sx={{
-          margin: "4rem",
+          m: "1rem 3rem",
         }}
       >
         <Grid
@@ -38,27 +39,17 @@ const Home = () => {
               maxWidth: "100%",
               height: "auto",
             }}
-            alt="illustration"
-            src={Illustration}
+            alt="search-illustration"
+            src={SearchImage}
           />
         </Grid>
-
         <Grid item xs={12} sm={5} alignSelf="center">
-          <Typography variant="h1">Hello</Typography>
-          <Link to="/predict">
-            <Button
-              variant="contained"
-              size="large"
-              color="primary"
-              sx={{ p: "1rem" }}
-            >
-              Search
-            </Button>
-          </Link>
+          <Typography variant="h1">Find</Typography>
+          <Search />
         </Grid>
       </Grid>
     </Grid>
   );
 };
 
-export default Home;
+export default Predict;
