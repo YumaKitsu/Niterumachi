@@ -20,10 +20,16 @@ class KMeansViewSet(mixins.ListModelMixin,
         queryset = KMeans.objects.all()
         prefecture = self.request.query_params.get('pref')
         city = self.request.query_params.get('city')
+        cluster = self.request.query_params.get('cluster')
         if city is not None:
-            queryset = queryset.filter(prefecture=prefecture).filter(city=city)
+            queryset = queryset.filter(city=city)
         elif prefecture is not None:
-            queryset = queryset.filter(prefecture=prefecture)
+            if cluster:
+                queryset = queryset.filter(prefecture=prefecture).filter(cluster=cluster)
+            else:
+                queryset = queryset.filter(prefecture=prefecture)
+        elif cluster is not None:
+            queryset = queryset.filter(cluster=cluster)
         return queryset
 
 

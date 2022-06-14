@@ -45,7 +45,7 @@ const Home = () => {
 
         <Grid item xs={12} sm={5} alignSelf="center">
           <Typography variant="h1">Hello</Typography>
-          <Link to="/predict">
+          <Link to="/search">
             <Button
               variant="contained"
               size="large"
