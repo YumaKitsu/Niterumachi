@@ -59,7 +59,6 @@ const Search = () => {
           <SearchField />
         </Box>
       </Grid>
-      <Outlet />
     </Grid>
   );
 };

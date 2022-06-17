@@ -1,8 +1,13 @@
 import React, { useState, useContext, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { TextField, Grid, Button } from "@mui/material";
+import {
+  Grid,
+  Button,
+  Select,
+  MenuItem,
+  InputLabel,
+} from "@mui/material";
 import StateContext from "../contexts/ContextProvider";
-import Loading from "./Loading";
 
 const PREFECTURES = [
   "北海道",
@@ -56,11 +61,9 @@ const PREFECTURES = [
 
 const SearchField = () => {
   const [selectedCities, setSelectedCities] = useState([]);
-  const [error, setError] = useState(null);
-  const [isSelected, setIsSelected] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const {
+  const [selectedData, setSelectedData] = useState({});
+  const [isSelected, setIsSelected] = useState(false);
+  const { 
     searchPref,
     changeHandler,
     prefData,
@@ -79,10 +82,16 @@ const SearchField = () => {
     fetchAllData();
   }, []);
 
-  const getResults = async (data) => {
+  useEffect(() => {
+    if (searchPref.prefOfOrigin && searchPref.cityOfOrigin && searchPref.currentPref) {
+      setIsSelected(true);
+  }
+  }, [searchPref])
+
+  const getResults = async (results) => {
     try {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/result/?pref=${searchPref.currentPref}&cluster=${data[0].cluster}`,
+        `http://127.0.0.1:8000/api/result/?pref=${searchPref.currentPref}&cluster=${results[0].cluster}`,
         {
           headers: {
             Accept: "application/json",
@@ -93,7 +102,7 @@ const SearchField = () => {
       setResults(result.results);
     } catch {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/result/?cluster=${data[0].cluster}`,
+        `http://127.0.0.1:8000/api/result/?cluster=${results[0].cluster}`,
         {
           headers: {
             Accept: "application/json",
@@ -101,7 +110,6 @@ const SearchField = () => {
         }
       );
       const result = await response.json();
-      console.log(result.results);
     }
   };
 
@@ -121,39 +129,16 @@ const SearchField = () => {
   }, [searchPref.prefOfOrigin, fetchPrefData]);
 
   const handleClick = () => {
-    if (
-      !searchPref.prefOfOrigin ||
-      !searchPref.currentPref ||
-      !searchPref.cityOfOrigin
-    ) {
-      return setIsSelected(false);
-    } else {
-      const fetchData = async () => {
-        try {
-          setIsLoading(true);
-          const response = await fetch(
-            `http://127.0.0.1:8000/api/result/?pref=${searchPref.prefOfOrigin}&city=${searchPref.cityOfOrigin}`
-          );
-          if (!response.ok) {
-            throw new Error(
-              `This is an HTTP error: The status is ${response.status}`
-            );
-          }
-          const data = await response.json();
-          setPrefData(data.results);
-          getResults(data.results);
-          setError(null);
-        } catch (err) {
-          setError(err.message);
-          setPrefData(null);
-        } finally {
-          setIsLoading(false);
-        }
-      };
-      fetchData();
-    }
+    const fetchData = async () => {
+      const response = await fetch(
+        `http://127.0.0.1:8000/api/result/?pref=${searchPref.prefOfOrigin}&city=${searchPref.cityOfOrigin}`
+      );
+      const data = await response.json();
+      const results = await data.results;
+      getResults(results);
+    };
+    fetchData();
   };
-
   return (
     <Grid
       container
@@ -167,76 +152,64 @@ const SearchField = () => {
         padding: "20px",
       }}
     >
-      {isLoading && <Loading />}
-      {!isSelected && (
-        <TextField
-          error
-          id="standard-error-helper-text"
-          label="Error"
-          defaultValue="Hello World"
-          helperText="Incorrect entry."
-          variant="standard"
-        />
-      )}
       <Grid item alignSelf="center">
-        <TextField
-          select
+        <InputLabel id="origin-of-prefecture">出身の都道府県</InputLabel>
+        <Select
           id="origin-of-prefecture"
           name="prefOfOrigin"
+          value={searchPref.prefOfOrigin}
+          label="出身の都道府県"
           onChange={changeHandler}
-          SelectProps={{
-            native: true,
-          }}
           sx={{ width: 300 }}
         >
           {PREFECTURES.map((pref) => (
-            <option key={pref} value={pref}>
+            <MenuItem key={pref} value={pref}>
               {pref}
-            </option>
+            </MenuItem>
           ))}
           ;
-        </TextField>
+        </Select>
       </Grid>
 
       <Grid item alignSelf="center">
-        <TextField
-          select
+
+        <InputLabel id="origin-of-city">出身の市区町村</InputLabel>
+        <Select
           id="origin-of-city"
           name="cityOfOrigin"
-          sx={{ width: 300 }}
+          value={searchPref.cityOfOrigin}
+          label="出身の市区町村"
           onChange={changeHandler}
-          SelectProps={{
-            native: true,
-          }}
+          sx={{ width: 300 }}
         >
           {selectedCities.map((prefObj) => (
-            <option key={prefObj.id}>
+            <MenuItem key={prefObj.id} value={prefObj.city}>
               {prefObj.city} {prefObj.ward}
-            </option>
+            </MenuItem>
           ))}
-        </TextField>
+          ;
+        </Select>
       </Grid>
 
       <Grid item alignSelf="center">
-        <TextField
-          select
+        <InputLabel id="current-prefecture">
+          現在住んでいる都道府県
+        </InputLabel>
+        <Select
           id="current-prefecture"
           name="currentPref"
+          value={searchPref.currentPref}
+          label="出身の都道府県"
           onChange={changeHandler}
-          SelectProps={{
-            native: true,
-          }}
-          sx={{
-            width: 300,
-          }}
+          sx={{ width: 300 }}
         >
-          {PREFECTURES.map((pref) => (
-            <option key={pref} value={pref}>
-              {pref}
-            </option>
+          {PREFECTURES.map((eachPref) => (
+            <MenuItem key={eachPref} value={eachPref}>
+              {eachPref}
+            </MenuItem>
           ))}
           ;
-        </TextField>
+        </Select>
       </Grid>
       <Grid item alignSelf="center">
         <Link to="/results">
@@ -254,5 +227,4 @@ const SearchField = () => {
     </Grid>
   );
 };
-
 export default SearchField;
