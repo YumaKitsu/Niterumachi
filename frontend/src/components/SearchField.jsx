@@ -61,7 +61,6 @@ const PREFECTURES = [
 
 const SearchField = () => {
   const [selectedCities, setSelectedCities] = useState([]);
-  const [selectedData, setSelectedData] = useState({});
   const [isSelected, setIsSelected] = useState(false);
   const { 
     searchPref,
@@ -149,7 +148,7 @@ const SearchField = () => {
       sx={{
         width: 610,
         height: 445,
-        padding: "20px",
+        padding: "20px"
       }}
     >
       <Grid item alignSelf="center">

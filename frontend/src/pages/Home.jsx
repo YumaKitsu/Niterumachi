@@ -36,6 +36,7 @@ const Home = () => {
             component="img"
             sx={{
               maxWidth: "100%",
+              // width: 500,
               height: "auto",
             }}
             alt="illustration"
@@ -43,16 +44,15 @@ const Home = () => {
           />
         </Grid>
 
-        <Grid item xs={12} sm={5} alignSelf="center">
+        <Grid item xs={12} sm={5}  alignSelf="center" spacing={2}>
           <Typography variant="h1">Hello</Typography>
           <Link to="/search">
             <Button
               variant="contained"
               size="large"
               color="primary"
-              sx={{ p: "1rem" }}
             >
-              Search
+              検索画面へ
             </Button>
           </Link>
         </Grid>

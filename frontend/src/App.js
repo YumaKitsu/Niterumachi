@@ -1,11 +1,14 @@
 import React from 'react';
-import { CssBaseline } from "@mui/material";
+import { CssBaseline, Stack, Typography, Box } from "@mui/material";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Search from './pages/Search';
 import Results from './pages/Results';
 import Home from './pages/Home';
 
+
+import Illustration from "./assets/images/not_found.svg";
+import Navbar from './components/Navbar';
 
 
 const theme = createTheme({
@@ -22,9 +25,7 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: [
-      'Fira Sans',
-      'Noto Sans JP',
-      'Source Serif Pro'
+      'Noto Sans JP', 'sans-serif'
     ].join(','),
   }
 });
@@ -36,12 +37,35 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <BrowserRouter>
+        <Navbar />
         <Routes>
 
           <Route path='/' element={<Home />} />
           <Route path='search' element={<Search />} />
           <Route path='results' element={<Results />} />
-  
+          <Route
+            path="*"
+            element={
+              <Stack direction="column"
+                alignItems="center"
+                justifyContent="center"
+                sx={{ m: 10 }}>
+                <Typography variant="h4" >ページが見つかりませんでした</Typography>
+                <Box
+                  component="img"
+                  sx={{
+                    maxWidth: "100%",
+                    width: 450,
+                    height: "auto",
+                    margin: 10
+                  }}
+                  alt="illustration"
+                  src={Illustration}
+                />
+              </Stack>
+            }
+          />
+
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

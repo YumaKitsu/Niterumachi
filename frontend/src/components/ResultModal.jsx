@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Box, Typography, Modal, Button } from '@mui/material';
-import StateContext from '../contexts/ContextProvider';
 
 const style = {
     position: 'absolute',
@@ -46,7 +45,7 @@ const ResultModal = (props) => {
             65歳以上人口： {props.those_over_65} 人
           </Typography>
           <Typography id="municipality-information" sx={{ p: 1 }}>
-            幼稚園数： {props.kindergardens} 園
+            幼稚園数： {props.kinder_gardens} 園
           </Typography>
           <Typography id="municipality-information" sx={{ p: 1 }}>
             小学校数： {props.elementary_schools} 校

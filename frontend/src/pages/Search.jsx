@@ -1,6 +1,5 @@
 import React from "react";
 import { Grid, Box, Typography } from "@mui/material";
-import { Outlet } from "react-router-dom";
 import SearchField from "../components/SearchField";
 
 import SearchImage from "../assets/images/search_page_image.png";
@@ -53,8 +52,9 @@ const Search = () => {
             justifyContent="space-around"
             maxWidth="100%"
             height="auto"
+            sx={{mt: 10}}
           >
-            <Typography sx={{margin: 'auto'}} variant="h3">市区町村を探す</Typography>
+            <Typography sx={{margin: 'auto', pb: 3}} variant="h3">市区町村を探す</Typography>
           </Grid>
           <SearchField />
         </Box>

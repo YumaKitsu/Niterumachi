@@ -19,48 +19,14 @@ const Results = () => {
   };
 
   return (
-    //   <React.Fragment>
-    //   <Grid container flexDirection="column" alignItems="center" spacing={6}>
-    //     <Grid item>
-    //       {!results.length && <h1>検索結果が見つかりませんでした</h1>}
-    //     </Grid>
-    //     <Grid item>
-    //       <List sx={{ width: "100%" }}>
-    //       <Typography variant="h5">
-    //         {searchPref.currentPref}の似ている市区町村
-    //       </Typography>
-    //         {results.map((data) => (
-    //           <ListItem button key={data.id}>
-    //             {data.prefecture} {data.city} {data.ward && data.ward}
-    //           </ListItem>
-    //         ))}
-    //       </List>
-    //     </Grid>
-    //     <Grid item>
-    //       <Link to="/search">
-    //         <Button
-    //           variant="contained"
-    //           color="secondary"
-    //           size="large"
-    //           onClick={handleClick}
-    //           sx={{ p: "1rem" }}
-    //         >
-    //           Back
-    //         </Button>
-    //       </Link>
-    //     </Grid>
-    //   </Grid>
-    // </React.Fragment>
+
     <Stack
       spacing={4}
       direction="column"
       alignItems="center"
       justifyContent="center"
-      sx={{ gap: { lg: "35px", xs: "20px" }, m: 20 }}
+      sx={{ gap: { lg: "35px", xs: "20px" }, m: 10 }}
     >
-      {!results.length && (
-        <Typography variant="h5">検索結果が見つかりませんでした</Typography>
-      )}
       <Stack
         direction="column"
         alignItems="center"
@@ -73,6 +39,12 @@ const Results = () => {
         <Typography variant="h5">
           {searchPref.currentPref} で似ている地域は...
         </Typography>
+        {!results.length && (
+        <Stack sx={{ padding: '30px' }}>
+          <Typography variant="h4">検索結果が見つかりませんでした</Typography>
+        </Stack>
+
+      )}
       </Stack>
       {results.map((data) => (
         <Box
