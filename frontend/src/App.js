@@ -5,10 +5,11 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Search from './pages/Search';
 import Results from './pages/Results';
 import Home from './pages/Home';
-
-
-import Illustration from "./assets/images/not_found.svg";
 import Navbar from './components/Navbar';
+
+import './App.css';
+import Illustration from "./assets/images/not_found.svg";
+
 
 
 const theme = createTheme({
@@ -25,7 +26,10 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: [
-      'Noto Sans JP', 'sans-serif'
+      'M PLUS 1p',
+      'Roboto',
+      '-apple-system',
+      'sans-serif'
     ].join(','),
   }
 });

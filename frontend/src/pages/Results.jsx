@@ -5,7 +5,7 @@ import StateContext from "../contexts/ContextProvider";
 import ResultModal from "../components/ResultModal";
 
 const Results = () => {
-  const { results, setResults, searchPref, setSearchPref, isSelected } =
+  const { results, setResults, searchPref, setSearchPref, queryPref } =
     useContext(StateContext);
 
   const handleClick = () => {
@@ -18,8 +18,23 @@ const Results = () => {
     setResults([]);
   };
 
-  return (
+  const anotherHandleClick = () => {
+    const getData = async () => {
+      const response = await fetch(
+        `http://127.0.0.1:8000/api/result/?cluster=${queryPref[0].cluster}`
+      );
+      const data = await response.json();
+      const results = await data.results;
+      setResults(results);
+      setSearchPref((prevData) => ({
+        ...prevData,
+        currentPref: "全国",
+      }));
+    };
+    getData();
+  };
 
+  return (
     <Stack
       spacing={4}
       direction="column"
@@ -34,25 +49,35 @@ const Results = () => {
         spacing={4}
       >
         <Typography variant="h4">
-          あなたの出身地は　{searchPref.prefOfOrigin} {searchPref.cityOfOrigin}
+          あなたの出身地は【{searchPref.prefOfOrigin} {searchPref.cityOfOrigin}
+          】
         </Typography>
         <Typography variant="h5">
           {searchPref.currentPref} で似ている地域は...
         </Typography>
         {!results.length && (
-        <Stack sx={{ padding: '30px' }}>
-          <Typography variant="h4">検索結果が見つかりませんでした</Typography>
-        </Stack>
-
-      )}
+          <Stack direction="column" sx={{ padding: "30px" }} spacing={8}>
+            <Typography variant="h4">検索結果が見つかりませんでした</Typography>
+            <Button
+              variant="contained"
+              color="secondary"
+              size="large"
+              onClick={anotherHandleClick}
+              sx={{ p: "1rem", maxWidth: 300 }}
+            >
+              全国で調べる
+            </Button>
+          </Stack>
+        )}
       </Stack>
       {results.map((data) => (
         <Box
+          key={data.id}
           component="span"
           sx={{
-            width: "400px",
+            width: "450px",
             height: "auto",
-            p: "1.5rem",
+            p: "2rem",
             borderRadius: "10px",
             boxShadow: "0 0.5px 1.5px 1px rgba(0, 0, 0, 0.5)",
           }}
@@ -63,7 +88,7 @@ const Results = () => {
             justifyContent="center"
             spacing={6}
           >
-            <Typography variant="h6" key={data.id}>
+            <Typography variant="h5" key={data.id}>
               {data.prefecture} {data.city} {data.ward && data.ward}
             </Typography>
             <ResultModal

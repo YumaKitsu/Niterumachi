@@ -13,7 +13,7 @@ const Search = () => {
       justifyContent="center"
       alignItems="center"
       sx={{
-        padding: '3.5rem',
+        padding: "3.5rem",
         margin: "auto",
         maxWidth: "100%",
         height: "auto",
@@ -21,7 +21,7 @@ const Search = () => {
         flexDirection: "row-reverse",
       }}
     >
-      <Grid container item sm={12} md={6} >
+      <Grid container item sm={12} md={6}>
         <Grid item>
           <Box
             component="img"
@@ -38,11 +38,12 @@ const Search = () => {
       <Grid container item sm={12} md={6} flexDirection="column">
         <Box
           sx={{
-            maxWidth: "75%",
+            maxWidth: "100%",
             height: "auto",
             margin: "auto",
             padding: "0.5rem",
-            boxShadow: "2px"
+            borderRadius: "10px",
+            boxShadow: "rgb(0 0 0 / 12%) 0px 6px 16px",
           }}
         >
           <Grid
@@ -52,9 +53,14 @@ const Search = () => {
             justifyContent="space-around"
             maxWidth="100%"
             height="auto"
-            sx={{mt: 10}}
+            sx={{ mt: 10 }}
           >
-            <Typography sx={{margin: 'auto', pb: 3}} variant="h3">市区町村を探す</Typography>
+            <Typography
+              sx={{ margin: "auto", pb: 3, fontWeight: 500 }}
+              variant="h3"
+            >
+              市区町村を探す
+            </Typography>
           </Grid>
           <SearchField />
         </Box>

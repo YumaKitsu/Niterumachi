@@ -36,7 +36,6 @@ const Home = () => {
             component="img"
             sx={{
               maxWidth: "100%",
-              // width: 500,
               height: "auto",
             }}
             alt="illustration"
@@ -51,6 +50,7 @@ const Home = () => {
               variant="contained"
               size="large"
               color="primary"
+              sx={{ p: "1rem" }}
             >
               検索画面へ
             </Button>

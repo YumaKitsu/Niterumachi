@@ -29,7 +29,7 @@ const ResultModal = (props) => {
         aria-describedby="municipality-information"
       >
         <Box sx={style}>
-          <Typography id="municipality-information" variant="h6" component="h2" sx={{ p: 1}}>
+          <Typography id="municipality-information" variant="h5" component="h2" sx={{ p: 1, borderBottom: '2px solid #1B2430' }}>
             {props.prefecture} {props.city} {props.ward && props.ward}
           </Typography>
           <Typography id="municipality-information" sx={{ mt: 3, p: 1 }}>
