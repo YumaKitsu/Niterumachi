@@ -6,6 +6,7 @@ import {
   Select,
   MenuItem,
   InputLabel,
+  FormControl,
 } from "@mui/material";
 import StateContext from "../contexts/ContextProvider";
 
@@ -62,35 +63,40 @@ const PREFECTURES = [
 const SearchField = () => {
   const [selectedCities, setSelectedCities] = useState([]);
   const [isSelected, setIsSelected] = useState(false);
-  const { 
+  
+  const {
     searchPref,
     changeHandler,
     prefData,
     setPrefData,
     results,
     setResults,
+    queryPref,
+    setQueryPref
   } = useContext(StateContext);
 
   useEffect(() => {
     const fetchAllData = async () => {
       const response = await fetch("http://127.0.0.1:8000/api/result");
       const data = await response.json();
-      console.log(data.results);
       setPrefData(data.results);
     };
     fetchAllData();
   }, []);
 
   useEffect(() => {
-    if (searchPref.prefOfOrigin && searchPref.cityOfOrigin && searchPref.currentPref) {
+    if (
+      searchPref.prefOfOrigin &&
+      searchPref.cityOfOrigin &&
+      searchPref.currentPref
+    ) {
       setIsSelected(true);
-  }
-  }, [searchPref])
+    }
+  }, [searchPref]);
 
-  const getResults = async (results) => {
-    try {
+  const getResults = async (data) => {
       const response = await fetch(
-        `http://127.0.0.1:8000/api/result/?pref=${searchPref.currentPref}&cluster=${results[0].cluster}`,
+        `http://127.0.0.1:8000/api/result/?pref=${searchPref.currentPref}&cluster=${data[0].cluster}`,
         {
           headers: {
             Accept: "application/json",
@@ -99,17 +105,6 @@ const SearchField = () => {
       );
       const result = await response.json();
       setResults(result.results);
-    } catch {
-      const response = await fetch(
-        `http://127.0.0.1:8000/api/result/?cluster=${results[0].cluster}`,
-        {
-          headers: {
-            Accept: "application/json",
-          },
-        }
-      );
-      const result = await response.json();
-    }
   };
 
   const fetchPrefData = useCallback(() => {
@@ -125,7 +120,7 @@ const SearchField = () => {
 
   useEffect(() => {
     fetchPrefData();
-  }, [searchPref.prefOfOrigin, fetchPrefData]);
+  }, [searchPref.prefOfOrigin]);
 
   const handleClick = () => {
     const fetchData = async () => {
@@ -133,8 +128,9 @@ const SearchField = () => {
         `http://127.0.0.1:8000/api/result/?pref=${searchPref.prefOfOrigin}&city=${searchPref.cityOfOrigin}`
       );
       const data = await response.json();
-      const results = await data.results;
-      getResults(results);
+      const result = await data.results;
+      getResults(result);
+      setQueryPref(result);
     };
     fetchData();
   };
@@ -148,80 +144,110 @@ const SearchField = () => {
       sx={{
         width: 610,
         height: 445,
-        padding: "20px"
+        padding: "20px",
       }}
     >
       <Grid item alignSelf="center">
-        <InputLabel id="origin-of-prefecture">出身の都道府県</InputLabel>
-        <Select
-          id="origin-of-prefecture"
-          name="prefOfOrigin"
-          value={searchPref.prefOfOrigin}
-          label="出身の都道府県"
-          onChange={changeHandler}
-          sx={{ width: 300 }}
-        >
-          {PREFECTURES.map((pref) => (
-            <MenuItem key={pref} value={pref}>
-              {pref}
-            </MenuItem>
-          ))}
-          ;
-        </Select>
+        <FormControl required>
+          <InputLabel id="origin-of-prefecture">出身の都道府県</InputLabel>
+          <Select
+            id="origin-of-prefecture"
+            name="prefOfOrigin"
+            value={searchPref.prefOfOrigin}
+            label="出身の都道府県"
+            onChange={changeHandler}
+            sx={{ width: 300 }}
+          >
+            {PREFECTURES.map((pref) => (
+              <MenuItem key={pref} value={pref}>
+                {pref}
+              </MenuItem>
+            ))}
+            ;
+          </Select>
+        </FormControl>
       </Grid>
 
       <Grid item alignSelf="center">
-
-        <InputLabel id="origin-of-city">出身の市区町村</InputLabel>
-        <Select
-          id="origin-of-city"
-          name="cityOfOrigin"
-          value={searchPref.cityOfOrigin}
-          label="出身の市区町村"
-          onChange={changeHandler}
-          sx={{ width: 300 }}
-        >
-          {selectedCities.map((prefObj) => (
-            <MenuItem key={prefObj.id} value={prefObj.city}>
-              {prefObj.city} {prefObj.ward}
-            </MenuItem>
-          ))}
-          ;
-        </Select>
+        <FormControl required>
+          <InputLabel id="origin-of-city">出身の市区町村</InputLabel>
+          <Select
+            id="origin-of-city"
+            name="cityOfOrigin"
+            value={searchPref.cityOfOrigin}
+            label="出身の市区町村"
+            onChange={changeHandler}
+            sx={{ width: 300 }}
+          >
+            {selectedCities.map((prefObj) => (
+              <MenuItem key={prefObj.id} value={prefObj.city}>
+                {prefObj.city} {prefObj.ward}
+              </MenuItem>
+            ))}
+            ;
+          </Select>
+        </FormControl>
       </Grid>
 
       <Grid item alignSelf="center">
-        <InputLabel id="current-prefecture">
-          現在住んでいる都道府県
-        </InputLabel>
-        <Select
-          id="current-prefecture"
-          name="currentPref"
-          value={searchPref.currentPref}
-          label="出身の都道府県"
-          onChange={changeHandler}
-          sx={{ width: 300 }}
-        >
-          {PREFECTURES.map((eachPref) => (
-            <MenuItem key={eachPref} value={eachPref}>
-              {eachPref}
-            </MenuItem>
-          ))}
-          ;
-        </Select>
+        <FormControl required>
+          <InputLabel id="current-prefecture">
+            現在住んでいる都道府県
+          </InputLabel>
+          <Select
+            id="current-prefecture"
+            name="currentPref"
+            value={searchPref.currentPref}
+            label="出身の都道府県"
+            onChange={changeHandler}
+            sx={{ width: 300 }}
+          >
+            {PREFECTURES.map((eachPref) => (
+              <MenuItem key={eachPref} value={eachPref}>
+                {eachPref}
+              </MenuItem>
+            ))}
+            ;
+          </Select>
+        </FormControl>
       </Grid>
       <Grid item alignSelf="center">
-        <Link to="/results">
+        {isSelected ? (
+          <Link to="/results">
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleClick}
+              sx={{
+                p: "1rem",
+                maxWidth: 300,
+                minWidth: 300,
+                maxHeight: 56,
+                minHeight: 56,
+                fontSize: 18,
+              }}
+            >
+              探す
+            </Button>
+          </Link>
+        ) : (
           <Button
+            disabled
             variant="contained"
             color="primary"
             size="large"
-            onClick={handleClick}
-            sx={{ p: "1rem" }}
+            sx={{
+              p: "1rem",
+              maxWidth: 300,
+              minWidth: 300,
+              maxHeight: 56,
+              minHeight: 56,
+              fontSize: 18,
+            }}
           >
-            Search
+            探す
           </Button>
-        </Link>
+        )}
       </Grid>
     </Grid>
   );

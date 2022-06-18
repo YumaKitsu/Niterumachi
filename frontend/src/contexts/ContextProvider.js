@@ -11,6 +11,8 @@ export const ContextProvider = ({ children }) => {
 
     const [prefData, setPrefData] = useState([]);
     const [results, setResults] = useState([]);
+
+    const [queryPref, setQueryPref] = useState([]);
     const changeHandler = (e) => {
         const { name, value } = e.target;
         setSearchPref((previousData) => ({
@@ -20,7 +22,7 @@ export const ContextProvider = ({ children }) => {
     };
 
     return (
-        <StateContext.Provider value={{ searchPref, setSearchPref, prefData, setPrefData, changeHandler, results, setResults }}>
+        <StateContext.Provider value={{ searchPref, setSearchPref, prefData, setPrefData, changeHandler, results, setResults, queryPref, setQueryPref }}>
             {children}
         </StateContext.Provider>
     )
