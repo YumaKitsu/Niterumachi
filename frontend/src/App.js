@@ -5,8 +5,12 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Search from './pages/Search';
 import Results from './pages/Results';
 import Home from './pages/Home';
-import Accommodation from './pages/Accommodation';
+import Accommodations from './pages/Accommodations';
+import Privacy from './pages/Privacy';
+import Terms from './pages/Terms';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+
 
 import './App.css';
 import Illustration from "./assets/images/not_found.svg";
@@ -40,7 +44,9 @@ const App = () => {
           <Route path='/' element={<Home />} />
           <Route path='search' element={<Search />} />
           <Route path='results' element={<Results />} />
-          <Route path='travel' element={<Accommodation />} />
+          <Route path='accommodations' element={<Accommodations />} />
+          <Route path='terms' element={<Terms />} />
+          <Route path='privacy' element={<Privacy />} />
           <Route
             path="*"
             element={
@@ -65,6 +71,7 @@ const App = () => {
           />
 
         </Routes>
+        <Footer />
       </BrowserRouter>
     </ThemeProvider>
   );

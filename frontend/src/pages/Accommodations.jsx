@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import { Grid } from "@mui/material";
 import Card from "../components/Card";
 
-const Accommodation = () => {
+const Accommodations = () => {
   const location = useLocation();
   const { city } = location.state;
   const [accommodationData, setAccommodationData] = useState([]);
@@ -43,4 +43,4 @@ const Accommodation = () => {
   );
 };
 
-export default Accommodation;
+export default Accommodations;
