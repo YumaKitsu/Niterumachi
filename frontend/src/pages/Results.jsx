@@ -135,7 +135,7 @@ const Results = () => {
                   <TableCell style={{ width: 160 }} align="right">
                     <Link
                       className="router-link"
-                      to="/travel"
+                      to="/accommodations"
                       state={{ city: data.city }}
                       style={{
                         fontSize: "1rem",

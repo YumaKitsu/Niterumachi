@@ -8,6 +8,7 @@ import {
   InputLabel,
   FormControl,
 } from "@mui/material";
+import SearchIcon from '@mui/icons-material/Search';
 import StateContext from "../contexts/ContextProvider";
 
 const PREFECTURES = [
@@ -227,6 +228,7 @@ const SearchField = () => {
                 fontSize: 18,
               }}
             >
+            <SearchIcon sx={{ mr: 0.7 }}/>
               探す
             </Button>
           </Link>
@@ -245,6 +247,7 @@ const SearchField = () => {
               fontSize: 18,
             }}
           >
+          <SearchIcon sx={{ mr: 0.7 }}/>
             探す
           </Button>
         )}

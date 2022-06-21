@@ -23,9 +23,16 @@ const Accommodations = () => {
   }, []);
 
   return (
-    <Grid container direction="row" justifyContent="flex-start" alignItems="space-evenly" spacing={8} sx={{ pl: {lg: 22, xs: 8}, mt: 12, pr: { xs: 5 } }} >
+    <Grid
+      container
+      direction="row"
+      justifyContent="flex-start"
+      alignItems="space-evenly"
+      spacing={8}
+      sx={{ pl: { xl: 22, xs: 10 }, pr: { sm: 7 }, mt: 12 }}
+    >
       {accommodationData.map((data) => (
-        <Grid item sm={6} xs={12} md={4} sx={{ mb: 8}}>
+        <Grid item sm={6} xs={12} sx={{ mb: 8 }}>
           <Card
             key={data.hotel[0].hotelBasicInfo.hotelName}
             name={data.hotel[0].hotelBasicInfo.hotelName}
@@ -38,7 +45,6 @@ const Accommodations = () => {
           />
         </Grid>
       ))}
-    
     </Grid>
   );
 };
