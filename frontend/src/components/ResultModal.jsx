@@ -1,35 +1,43 @@
-import React, { useState } from 'react';
-import { Box, Typography, Modal, Button } from '@mui/material';
+import React, { useState } from "react";
+import { Box, Typography, Modal, Stack, Link as MuiLink } from "@mui/material";
+
+
 
 const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 600,
-    bgcolor: 'background.paper',
-    borderRadius: '10px',
-    boxShadow: '0 0.5px 1.5px 1px rgba(0, 0, 0, 0.5)',
-    p: 6,
-  };
-  
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 650,
+  maxWidth: '100%',
+  bgcolor: "background.paper",
+  borderRadius: "10px",
+  boxShadow: "0 0.5px 1.5px 1px rgba(0, 0, 0, 0.5)",
+  p: 6,
+};
 
 const ResultModal = (props) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  
   return (
-    <div>
-      <Button variant='outlined' onClick={handleOpen}>情報を見る</Button>
+    <Stack direction="row" spacing={3}>
+      <MuiLink component="button" onClick={handleOpen} sx={{ fontSize: '1rem' }}>
+        情報を見る
+      </MuiLink>
       <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="municipality-information"
       >
-        <Box sx={style}>
-          <Typography id="municipality-information" variant="h5" component="h2" sx={{ p: 1, borderBottom: '2px solid #1B2430' }}>
+        <Box sx={style} >
+          <Typography
+            id="municipality-information"
+            variant="h5"
+            component="h2"
+            sx={{ p: 1, borderBottom: "2px solid #1B2430" }}
+          >
             {props.prefecture} {props.city} {props.ward && props.ward}
           </Typography>
           <Typography id="municipality-information" sx={{ mt: 3, p: 1 }}>
@@ -79,8 +87,8 @@ const ResultModal = (props) => {
           </Typography>
         </Box>
       </Modal>
-    </div>
-  )
-}
+    </Stack>
+  );
+};
 
 export default ResultModal;
