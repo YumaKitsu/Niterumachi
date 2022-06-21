@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Search from './pages/Search';
 import Results from './pages/Results';
 import Home from './pages/Home';
+import Accommodation from './pages/Accommodation';
 import Navbar from './components/Navbar';
 
 import './App.css';
@@ -24,14 +25,6 @@ const theme = createTheme({
       default: "FFFFFF"
     }
   },
-  typography: {
-    fontFamily: [
-      'M PLUS 1p',
-      'Roboto',
-      '-apple-system',
-      'sans-serif'
-    ].join(','),
-  }
 });
 
 
@@ -47,6 +40,7 @@ const App = () => {
           <Route path='/' element={<Home />} />
           <Route path='search' element={<Search />} />
           <Route path='results' element={<Results />} />
+          <Route path='travel' element={<Accommodation />} />
           <Route
             path="*"
             element={

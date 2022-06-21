@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Box, Typography } from "@mui/material";
+import { Grid, Box, Typography, Stack } from "@mui/material";
 import SearchField from "../components/SearchField";
 
 import SearchImage from "../assets/images/search_page_image.png";
@@ -51,6 +51,7 @@ const Search = () => {
             container
             flexDirection="column"
             justifyContent="space-around"
+            alignContent="center"
             maxWidth="100%"
             height="auto"
             sx={{ mt: 10 }}
