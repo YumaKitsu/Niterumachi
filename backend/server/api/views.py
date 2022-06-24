@@ -9,8 +9,8 @@ from .serializers import KMeansSerializer
 
 # Create your views here.
 class KMeansViewSet(mixins.ListModelMixin,
-                     mixins.RetrieveModelMixin,
-                     viewsets.GenericViewSet
+                    mixins.RetrieveModelMixin,
+                    viewsets.GenericViewSet
                     ):
     serializer_class = KMeansSerializer
     filter_backends = [filters.SearchFilter]
@@ -20,17 +20,21 @@ class KMeansViewSet(mixins.ListModelMixin,
         queryset = KMeans.objects.all()
         prefecture = self.request.query_params.get('pref')
         city = self.request.query_params.get('city')
+        ward = self.request.query_params.get('ward')
         cluster = self.request.query_params.get('cluster')
-        if city is not None:
+        if city:
+            if ward:
+                queryset = queryset.filter(city=city).filter(ward=ward)
             queryset = queryset.filter(city=city)
-        elif prefecture is not None:
+        elif ward:
+            queryset = queryset.filter(ward=ward)
+
+        elif prefecture:
             if cluster:
-                queryset = queryset.filter(prefecture=prefecture).filter(cluster=cluster)
+                queryset = queryset.filter(
+                    prefecture=prefecture).filter(cluster=cluster)
             else:
                 queryset = queryset.filter(prefecture=prefecture)
-        elif cluster is not None:
+        elif cluster:
             queryset = queryset.filter(cluster=cluster)
         return queryset
-
-
-

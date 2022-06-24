@@ -13,7 +13,8 @@ import Footer from './components/Footer';
 
 
 import './App.css';
-import Illustration from "./assets/images/not_found.svg";
+import logo from "./assets/images/not_found.svg";
+
 
 
 
@@ -43,7 +44,7 @@ const App = () => {
 
           <Route path='/' element={<Home />} />
           <Route path='search' element={<Search />} />
-          <Route path='results' element={<Results />} />
+          <Route path='results' element={<Results />} /> 
           <Route path='accommodations' element={<Accommodations />} />
           <Route path='terms' element={<Terms />} />
           <Route path='privacy' element={<Privacy />} />
@@ -64,7 +65,7 @@ const App = () => {
                     margin: 10
                   }}
                   alt="illustration"
-                  src={Illustration}
+                  src={logo}
                 />
               </Stack>
             }
@@ -77,4 +78,4 @@ const App = () => {
   );
 }
 
-export default App;                     
+export default App; 

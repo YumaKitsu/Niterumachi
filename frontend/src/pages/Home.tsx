@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Typography, Box, Button } from "@mui/material";
+import { Grid, Typography, Box, Button, Stack } from "@mui/material";
 import { Link } from "react-router-dom";
 
 import Illustration from "../assets/images/homepage_image.svg";
@@ -26,7 +26,7 @@ const Home = () => {
         <Grid
           item
           xs={12}
-          sm={7}
+          md={7}
           alignSelf="center"
           sx={{
             pr: "1.5rem",
@@ -43,18 +43,22 @@ const Home = () => {
           />
         </Grid>
 
-        <Grid item xs={12} sm={5}  alignSelf="center" spacing={2}>
-          <Typography variant="h1">Hello</Typography>
-          <Link to="/search">
-            <Button
-              variant="contained"
-              size="large"
-              color="primary"
-              sx={{ p: "1rem" }}
-            >
-              検索画面へ
-            </Button>
-          </Link>
+        <Grid item xs={12} md={5} alignSelf="flex-start" spacing={2}>
+          <Stack direction="column" spacing={4}>
+            <Typography variant="h2" sx={{ fontWeight: 700 }}>
+              帰省気分を味わおう
+            </Typography>
+            <Link to="/search">
+              <Button
+                variant="contained"
+                size="large"
+                color="primary"
+                sx={{ p: "1rem" }}
+              >
+                検索画面へ
+              </Button>
+            </Link>
+          </Stack>
         </Grid>
       </Grid>
     </Grid>

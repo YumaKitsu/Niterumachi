@@ -48,7 +48,7 @@ const Privacy = () => {
           当社が個人情報を収集・利用する目的は，以下のとおりです。
         </Typography>
 
-        <List sx={{ pl: 7 }}>
+        <List sx={{ pl: 5 }}>
           <ListItem>
             <ListItemText>1当社サービスの提供・運営のため</ListItemText>
           </ListItem>

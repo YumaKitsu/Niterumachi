@@ -8,7 +8,11 @@ import {
   InputLabel,
   FormControl,
 } from "@mui/material";
-import StateContext from "../contexts/ContextProvider";
+import SearchIcon from "@mui/icons-material/Search";
+import PrefData from "../models/prefData";
+import SearchContext from "../contexts/SearchContext";
+import APIContext from "../contexts/APIContext";
+import { prettyFormat } from "@testing-library/react";
 
 const PREFECTURES = [
   "北海道",
@@ -61,27 +65,14 @@ const PREFECTURES = [
 ];
 
 const SearchField = () => {
-  const [selectedCities, setSelectedCities] = useState([]);
+  const [selectedCities, setSelectedCities] = useState<PrefData[]>([]);
   const [isSelected, setIsSelected] = useState(false);
-  
-  const {
-    searchPref,
-    changeHandler,
-    prefData,
-    setPrefData,
-    results,
-    setResults,
-    queryPref,
-    setQueryPref
-  } = useContext(StateContext);
+  const { searchPref, selectPref } = useContext(SearchContext);
+  const { allData, results, getResults, getClusterOfPref } =
+    useContext(APIContext);
 
   useEffect(() => {
-    const fetchAllData = async () => {
-      const response = await fetch("http://127.0.0.1:8000/api/result");
-      const data = await response.json();
-      setPrefData(data.results);
-    };
-    fetchAllData();
+    getResults();
   }, []);
 
   useEffect(() => {
@@ -94,46 +85,33 @@ const SearchField = () => {
     }
   }, [searchPref]);
 
-  const getResults = async (data) => {
-      const response = await fetch(
-        `http://127.0.0.1:8000/api/result/?pref=${searchPref.currentPref}&cluster=${data[0].cluster}`,
-        {
-          headers: {
-            Accept: "application/json",
-          },
-        }
-      );
-      const result = await response.json();
-      setResults(result.results);
-  };
+  useCallback(() => {
+    selectCity();
+  }, [searchPref.prefOfOrigin]);
 
-  const fetchPrefData = useCallback(() => {
-    const filterPrefObj = (obj) => {
+  useEffect(() => {
+    selectCity();
+  }, [searchPref.prefOfOrigin]);
+
+  const selectCity = useCallback(() => {
+    const filterPrefObj = (obj: PrefData) => {
       if (Object.values(obj)[1] === searchPref.prefOfOrigin) {
         return true;
       }
       return false;
     };
-    let newArray = prefData.filter(filterPrefObj);
-    setSelectedCities(newArray);
-  }, [searchPref.prefOfOrigin, prefData]);
-
-  useEffect(() => {
-    fetchPrefData();
+    const selectedData = allData.filter(filterPrefObj);
+    setSelectedCities(selectedData);
   }, [searchPref.prefOfOrigin]);
 
   const handleClick = () => {
-    const fetchData = async () => {
-      const response = await fetch(
-        `http://127.0.0.1:8000/api/result/?pref=${searchPref.prefOfOrigin}&city=${searchPref.cityOfOrigin}`
-      );
-      const data = await response.json();
-      const result = await data.results;
-      getResults(result);
-      setQueryPref(result);
-    };
-    fetchData();
+    let cluster = getClusterOfPref();
+    console.log(cluster);
+    
+    let prefecture = searchPref.currentPref;
+    getResults(cluster, prefecture);
   };
+
   return (
     <Grid
       container
@@ -155,7 +133,7 @@ const SearchField = () => {
             name="prefOfOrigin"
             value={searchPref.prefOfOrigin}
             label="出身の都道府県"
-            onChange={changeHandler}
+            onChange={selectPref}
             sx={{ width: 300 }}
           >
             {PREFECTURES.map((pref) => (
@@ -176,14 +154,27 @@ const SearchField = () => {
             name="cityOfOrigin"
             value={searchPref.cityOfOrigin}
             label="出身の市区町村"
-            onChange={changeHandler}
+            onChange={selectPref}
             sx={{ width: 300 }}
           >
-            {selectedCities.map((prefObj) => (
-              <MenuItem key={prefObj.id} value={prefObj.city}>
-                {prefObj.city} {prefObj.ward}
-              </MenuItem>
-            ))}
+            {!searchPref.prefOfOrigin ? (
+              <MenuItem>都道府県を選んで下さい</MenuItem>
+            ) : (
+              selectedCities.map((prefObj) =>
+                prefObj.ward ? (
+                  <MenuItem
+                    key={prefObj.id}
+                    value={prefObj.city + prefObj.ward}
+                  >
+                    {prefObj.city} {prefObj.ward}
+                  </MenuItem>
+                ) : (
+                  <MenuItem key={prefObj.id} value={prefObj.city}>
+                    {prefObj.city} {prefObj.ward}
+                  </MenuItem>
+                )
+              )
+            )}
             ;
           </Select>
         </FormControl>
@@ -191,15 +182,13 @@ const SearchField = () => {
 
       <Grid item alignSelf="center">
         <FormControl required>
-          <InputLabel id="current-prefecture">
-            現在住んでいる都道府県
-          </InputLabel>
+          <InputLabel id="current-prefecture">現在お住みの都道府県</InputLabel>
           <Select
             id="current-prefecture"
             name="currentPref"
             value={searchPref.currentPref}
             label="出身の都道府県"
-            onChange={changeHandler}
+            onChange={selectPref}
             sx={{ width: 300 }}
           >
             {PREFECTURES.map((eachPref) => (
@@ -227,6 +216,7 @@ const SearchField = () => {
                 fontSize: 18,
               }}
             >
+              <SearchIcon sx={{ mr: 0.7 }} />
               探す
             </Button>
           </Link>
@@ -245,6 +235,7 @@ const SearchField = () => {
               fontSize: 18,
             }}
           >
+            <SearchIcon sx={{ mr: 0.7 }} />
             探す
           </Button>
         )}

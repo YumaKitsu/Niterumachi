@@ -143,7 +143,7 @@ const Terms = () => {
             </ListItemText>
           </ListItem>
 
-          <List sx={{ pl: 7 }}>
+          <List sx={{ pl: 5 }}>
             <ListItem>
               <ListItemText>
                 1.本サービスにかかるコンピュータシステムの保守点検または更新を行う場合

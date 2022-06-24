@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Box, Typography, Modal, Stack, Link as MuiLink } from "@mui/material";
 
-
+import PrefData from "../models/prefData";
 
 const style = {
   position: "absolute",
@@ -16,7 +16,7 @@ const style = {
   p: 6,
 };
 
-const ResultModal = (props) => {
+const ResultModal = (props: PrefData) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -53,7 +53,7 @@ const ResultModal = (props) => {
             65歳以上人口： {props.those_over_65} 人
           </Typography>
           <Typography id="municipality-information" sx={{ p: 1 }}>
-            幼稚園数： {props.kinder_gardens} 園
+            幼稚園数： {props.kindergartens} 園
           </Typography>
           <Typography id="municipality-information" sx={{ p: 1 }}>
             小学校数： {props.elementary_schools} 校
