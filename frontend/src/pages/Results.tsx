@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   Link as MuiLink,
   Typography,
@@ -15,49 +15,46 @@ import {
   TablePagination,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-import StateContext from "../contexts/ContextProvider";
+import SearchContext from "../contexts/SearchContext";
+import APIContext from "../contexts/APIContext";
 import ResultModal from "../components/ResultModal";
 
 const Results = () => {
-  const { results, setResults, searchPref, setSearchPref, queryPref } =
-    useContext(StateContext);
-
+  const { searchPref, initializeSelectedData } = useContext(SearchContext);
+  const { results, getResults, getClusterOfPref, initializeFetchedData } =
+    useContext(APIContext);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(15);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
-  const handleChangePage = (event, newPage) => {
+  const handleChangePage = (
+    event: React.MouseEvent<HTMLButtonElement> | null,
+    newPage: number
+  ) => {
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(+event.target.value);
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+
   const handleClick = () => {
-    setSearchPref({
-      prefOfOrigin: "",
-      cityOfOrigin: "",
-      currentPref: "",
-    });
-
-    setResults([]);
+    searchPref.currentPref = '全国'
+    let cluster = getClusterOfPref();
+    getResults(cluster);
   };
 
-  const anotherHandleClick = () => {
-    const getData = async () => {
-      const response = await fetch(
-        `http://127.0.0.1:8000/api/result/?cluster=${queryPref[0].cluster}`
-      );
-      const data = await response.json();
-      const results = await data.results;
-      setResults(results);
-      setSearchPref((prevData) => ({
-        ...prevData,
-        currentPref: "全国",
-      }));
-    };
-    getData();
+  const initializeData = () => {
+    initializeSelectedData();
+    initializeFetchedData();
   };
+
+  window.addEventListener('popstate', () =>{
+          window.location.reload();
+       });
+
 
   return (
     <Stack
@@ -84,8 +81,8 @@ const Results = () => {
             <Typography variant="h4">検索結果が見つかりませんでした</Typography>
             <MuiLink
               component="button"
-              onClick={anotherHandleClick}
-              sx={{ fontSize: '1.5rem' }}
+              onClick={handleClick}
+              sx={{ fontSize: "1.5rem" }}
             >
               全国で調べる
             </MuiLink>
@@ -99,7 +96,9 @@ const Results = () => {
             <TableRow>
               <TableCell>都道府県</TableCell>
               <TableCell style={{ width: 160 }}>統計情報</TableCell>
-              <TableCell style={{ width: 160, paddingRight: 70 }} align="right">宿泊地</TableCell>
+              <TableCell style={{ width: 160, paddingRight: 70 }} align="right">
+                宿泊地
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -119,7 +118,7 @@ const Results = () => {
                       those_under_15={data.those_under_15}
                       those_between_15_and_64={data.those_between_15_and_64}
                       those_over_65={data.those_over_65}
-                      kinder_gardens={data.kinder_gardens}
+                      kindergartens={data.kindergartens}
                       elementary_schools={data.elementary_schools}
                       junior_high_schools={data.junior_high_schools}
                       high_schools={data.high_schools}
@@ -150,13 +149,15 @@ const Results = () => {
               ))}
           </TableBody>
           <TableFooter>
-            <TablePagination
-              count={results.length}
-              page={page}
-              rowsPerPage={rowsPerPage}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-            />
+            <TableRow>
+              <TablePagination
+                count={results.length}
+                page={page}
+                rowsPerPage={rowsPerPage}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+              />
+            </TableRow>
           </TableFooter>
         </Table>
       </TableContainer>
@@ -166,7 +167,7 @@ const Results = () => {
           variant="contained"
           color="secondary"
           size="large"
-          onClick={handleClick}
+          onClick={initializeData}
           sx={{ p: "1rem" }}
         >
           検索画面に戻る

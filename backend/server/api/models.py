@@ -11,7 +11,7 @@ class KMeansManager(models.Manager):
                 those_under_15,
                 those_between_15_and_64,
                 those_over_65,
-                kindergardens,
+                kindergartens,
                 elementary_schools,
                 junior_high_schools,
                 high_schools,
@@ -24,14 +24,14 @@ class KMeansManager(models.Manager):
                 tertiary_industry_ratio,
                 cluster):
 
-        result = self.create(prefecture=prefecture, 
+        result = self.create(prefecture=prefecture,
                              city=city,
                              ward=ward,
                              total_population=total_population,
                              those_under_15=those_under_15,
                              those_between_15_and_64=those_between_15_and_64,
                              those_over_65=those_over_65,
-                             kindergardens=kindergardens,
+                             kindergartens=kindergartens,
                              elementary_schools=elementary_schools,
                              junior_high_schools=junior_high_schools,
                              high_schools=high_schools,
@@ -54,7 +54,7 @@ class KMeans(models.Model):
     those_under_15 = models.IntegerField()
     those_between_15_and_64 = models.IntegerField()
     those_over_65 = models.IntegerField()
-    kindergardens = models.IntegerField()
+    kindergartens = models.IntegerField()
     elementary_schools = models.IntegerField()
     junior_high_schools = models.IntegerField()
     high_schools = models.IntegerField()

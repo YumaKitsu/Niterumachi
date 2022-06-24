@@ -1,7 +1,9 @@
 import React from "react";
 import { Card as MuiCard, CardContent, CardMedia, Typography, Link, Stack } from "@mui/material";
+import HotelData from "../models/hotelData";
 
-const Card = (props) => {
+
+const Card = (props: HotelData) => {
   return (
     <MuiCard sx={{ maxWidth: '100%', minHeight: 550, width: 400, height: 'auto'}}>
       <CardMedia

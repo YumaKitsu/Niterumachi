@@ -2,7 +2,7 @@ import React from "react";
 import { Grid, Box, Typography, Stack } from "@mui/material";
 import SearchField from "../components/SearchField";
 
-import SearchImage from "../assets/images/search_page_image.png";
+import SearchImage from "../assets/images/search.svg";
 
 const Search = () => {
   return (
