@@ -89,7 +89,7 @@ class KMeans(models.Model):
 #                                     those_under_15=value[1],
 #                                     those_between_15_and_64=value[2],
 #                                     those_over_65=value[3],
-#                                     kindergardens=value[4],
+#                                     kindergartens=value[4],
 #                                     elementary_schools=value[5],
 #                                     junior_high_schools=value[6],
 #                                     high_schools=value[7],
