@@ -1,7 +1,6 @@
 import React from "react";
-import { Grid, Box, Typography, Stack } from "@mui/material";
+import { Grid, Box, Typography } from "@mui/material";
 import SearchField from "../components/SearchField";
-
 import SearchImage from "../assets/images/search.svg";
 
 const Search = () => {
@@ -57,8 +56,7 @@ const Search = () => {
             sx={{ mt: 10 }}
           >
             <Typography
-              sx={{ margin: "auto", pb: 3, fontWeight: 500 }}
-              variant="h3"
+              sx={{ margin: "auto", pb: 3, fontWeight: 600, fontSize: '2.7rem' }}
             >
               市区町村を探す
             </Typography>
