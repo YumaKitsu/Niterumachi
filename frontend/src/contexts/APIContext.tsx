@@ -36,30 +36,26 @@ export const APIContextProvider = (props: Props) => {
 
   async function getResults(cluster?: number, prefecture?: string) {
     if (prefecture && (cluster === 0 || cluster)) {
-      console.log(123);
       const response = await fetch(
-        `http://127.0.0.1:8000/api/result/?pref=${prefecture}&cluster=${cluster}`
+        `http://127.0.0.1:8000/api/results/?pref=${prefecture}&cluster=${cluster}`
       );
       const data: ResponseData = await response.json();
       setResults(data.results);
     } else if (cluster === 0 || cluster) {
-      console.log("Searching all...");
       const response = await fetch(
-        `http://127.0.0.1:8000/api/result/?cluster=${cluster}`
+        `http://127.0.0.1:8000/api/results/?cluster=${cluster}`
       );
       const data: ResponseData = await response.json();
       setResults(data.results);
     } else if (searchPref.prefOfOrigin && searchPref.cityOfOrigin) {
-      console.log('foo');
-
       const response = await fetch(
-        `http://127.0.0.1:8000/api/result/?city=${searchPref.cityOfOrigin}`
+        `http://127.0.0.1:8000/api/results/?city=${searchPref.cityOfOrigin}`
       );
       const data: ResponseData = await response.json();
       setResults(data.results);
     } else {
       
-      const response = await fetch("http://127.0.0.1:8000/api/result");
+      const response = await fetch("http://127.0.0.1:8000/api/results");
       const data: ResponseData = await response.json();
       setAllData(data.results);
     }

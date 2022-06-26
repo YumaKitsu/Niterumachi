@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import {
   Link as MuiLink,
   Typography,
@@ -26,6 +26,11 @@ const Results = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
+  window.history.pushState(null, '', window.location.href);
+  window.addEventListener("popstate", (e) => {
+    window.history.go(1);
+  });
+
   const handleChangePage = (
     event: React.MouseEvent<HTMLButtonElement> | null,
     newPage: number
@@ -41,7 +46,7 @@ const Results = () => {
   };
 
   const handleClick = () => {
-    searchPref.currentPref = '全国'
+    searchPref.currentPref = "全国";
     let cluster = getClusterOfPref();
     getResults(cluster);
   };
@@ -50,11 +55,6 @@ const Results = () => {
     initializeSelectedData();
     initializeFetchedData();
   };
-
-  window.addEventListener('popstate', () =>{
-          window.location.reload();
-       });
-
 
   return (
     <Stack

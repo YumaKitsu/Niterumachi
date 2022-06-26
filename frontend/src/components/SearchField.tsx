@@ -12,7 +12,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import PrefData from "../models/prefData";
 import SearchContext from "../contexts/SearchContext";
 import APIContext from "../contexts/APIContext";
-import { prettyFormat } from "@testing-library/react";
+
 
 const PREFECTURES = [
   "北海道",
@@ -67,13 +67,20 @@ const PREFECTURES = [
 const SearchField = () => {
   const [selectedCities, setSelectedCities] = useState<PrefData[]>([]);
   const [isSelected, setIsSelected] = useState(false);
-  const { searchPref, selectPref } = useContext(SearchContext);
+  const { searchPref, selectPref, initializeSelectedData } = useContext(SearchContext);
   const { allData, results, getResults, getClusterOfPref } =
     useContext(APIContext);
 
   useEffect(() => {
+    setSelectedCities([])
     getResults();
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem('prefOfOrigin', JSON.stringify(searchPref.prefOfOrigin))
+    localStorage.setItem('cityOfOrigin', JSON.stringify(searchPref.cityOfOrigin))
+    localStorage.setItem('currentPref', JSON.stringify(searchPref.currentPref))
+  }, [searchPref])
 
   useEffect(() => {
     if (
@@ -106,11 +113,11 @@ const SearchField = () => {
 
   const handleClick = () => {
     let cluster = getClusterOfPref();
-    console.log(cluster);
-    
     let prefecture = searchPref.currentPref;
     getResults(cluster, prefecture);
   };
+
+
 
   return (
     <Grid

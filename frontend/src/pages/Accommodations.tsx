@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Location } from "history";
-import { Grid } from "@mui/material";
+import { Grid, Button, Stack, Typography } from "@mui/material";
 import Card from "../components/Card";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
 interface HotelInfo {
   hotelName: string;
@@ -12,18 +13,19 @@ interface HotelInfo {
   access: string;
   hotelImageUrl: string;
   hotelInformationUrl: string;
-};
+}
 
 interface Hotel {
   hotelBasicInfo: HotelInfo;
-};
+}
 
 interface Hotels {
   hotel: Hotel[];
-};
+}
 
 const Accommodations: React.FC = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const city = useMemo(() => {
     const state = location.state as { city: Location };
 
@@ -54,12 +56,34 @@ const Accommodations: React.FC = () => {
       justifyContent="flex-start"
       alignItems="space-evenly"
       spacing={8}
-      sx={{ pl: { xl: 22, xs: 10 }, pr: { sm: 7 }, mt: 12 }}
+      sx={{ pl: { xl: 22, xs: 10 }, pr: { sm: 7 }, mt: 7 }}
     >
+      <Grid container item direction="column" sx={{ p: 3 }}>
+        <Button
+          variant="contained"
+          onClick={() => {
+            navigate(-1);
+          }}
+          sx={{ width: 185, fontSize: "1.4rem" }}
+        >
+          <ArrowBackIosIcon sx={{ color: "white" }} />
+          戻る
+        </Button>
+        <Typography variant="h4" sx={{ mt: 9 }}>
+          {accommodationData.length} 件の宿泊施設が見つかりました
+        </Typography>
+      </Grid>
+
       {accommodationData.map((data) => (
-        <Grid item md={4} sm={6} xs={12} sx={{ mb: 8 }}>
+        <Grid
+          key={data.hotel[0].hotelBasicInfo.hotelName}
+          item
+          md={4}
+          sm={6}
+          xs={12}
+          sx={{ mb: 8 }}
+        >
           <Card
-            key={data.hotel[0].hotelBasicInfo.hotelName}
             name={data.hotel[0].hotelBasicInfo.hotelName}
             prefecture={data.hotel[0].hotelBasicInfo.address1}
             city={data.hotel[0].hotelBasicInfo.address2}
@@ -70,6 +94,18 @@ const Accommodations: React.FC = () => {
           />
         </Grid>
       ))}
+      <Grid container item sx={{ p: 10 }}>
+        <Button
+          variant="contained"
+          onClick={() => {
+            navigate(-1);
+          }}
+          sx={{ width: 185, fontSize: "1.4rem" }}
+        >
+          <ArrowBackIosIcon sx={{ color: "white" }} />
+          戻る
+        </Button>
+      </Grid>
     </Grid>
   );
 };
