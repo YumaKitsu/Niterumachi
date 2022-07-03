@@ -5,9 +5,9 @@ import React, {
   useContext,
   useCallback,
 } from "react";
-import SearchContext from "../contexts/SearchContext";
+import axios from "axios";
+import SearchContext from "./SearchContext";
 import PrefData from "../models/prefData";
-import ResponseData from "../models/responseData";
 
 interface APIContextObj {
   allData: PrefData[];
@@ -36,28 +36,19 @@ export const APIContextProvider = (props: Props) => {
 
   async function getResults(cluster?: number, prefecture?: string) {
     if (prefecture && (cluster === 0 || cluster)) {
-      const response = await fetch(
+      await axios.get(
         `http://127.0.0.1:8000/api/results/?pref=${prefecture}&cluster=${cluster}`
-      );
-      const data: ResponseData = await response.json();
-      setResults(data.results);
+      ).then((res) => setResults(res.data.results))
     } else if (cluster === 0 || cluster) {
-      const response = await fetch(
+        await axios.get(
         `http://127.0.0.1:8000/api/results/?cluster=${cluster}`
-      );
-      const data: ResponseData = await response.json();
-      setResults(data.results);
+      ).then((res) => setResults(res.data.results))
     } else if (searchPref.prefOfOrigin && searchPref.cityOfOrigin) {
-      const response = await fetch(
+       await axios.get(
         `http://127.0.0.1:8000/api/results/?city=${searchPref.cityOfOrigin}`
-      );
-      const data: ResponseData = await response.json();
-      setResults(data.results);
+      ).then((res) => setResults(res.data.results))
     } else {
-      
-      const response = await fetch("http://127.0.0.1:8000/api/results");
-      const data: ResponseData = await response.json();
-      setAllData(data.results);
+      await axios.get("http://127.0.0.1:8000/api/results").then((res) => setAllData(res.data.results))
     }
   }
 

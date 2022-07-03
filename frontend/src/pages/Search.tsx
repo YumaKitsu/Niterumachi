@@ -39,7 +39,7 @@ const Search = () => {
           sx={{
             maxWidth: "100%",
             height: "auto",
-            margin: "auto",
+            margin: "5rem auto",
             padding: "0.5rem",
             borderRadius: "10px",
             boxShadow: "rgb(0 0 0 / 12%) 0px 6px 16px",

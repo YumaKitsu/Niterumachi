@@ -4,11 +4,11 @@ import { Stack } from '@mui/material';
 
 const Footer = () => {
   return (
-    <Stack direction="row" sx={{ gap: { sm: '150px', xs: '40px' }, mt: { sm: '32px', xs: '20px' }, mb: { xs: 4 }, justifyContent: 'center' }} px="20px">
+    <Stack direction="row" sx={{ gap: { sm: '100px', xs: '40px' }, mt: { sm: '72px', xs: '20px' }, mb: { xs: 4 }, justifyContent: 'center' }} px="20px">
     <Stack
       direction="row"
-      gap="40px"
-      fontSize="24px"
+      gap="170px"
+      fontSize="18px"
       alignItems="center"
       justifyContent="center"
     >
