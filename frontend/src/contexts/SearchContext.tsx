@@ -38,14 +38,12 @@ export const ContextProvider = (props: Props) => {
 
   const selectPref = (e: SelectChangeEvent<string>) => {
       const { name, value } = e.target;
-      try {
+
         setSearchPref((previousData) => {
           return { ...previousData, [name]: value};
         });
-      } catch(e) {
-
-      }
-    }
+      } 
+    
   
 
   const initializeSelectedData = () => {

@@ -67,7 +67,7 @@ const PREFECTURES = [
 const SearchField = () => {
   const [selectedCities, setSelectedCities] = useState<PrefData[]>([]);
   const [isSelected, setIsSelected] = useState(false);
-  const { searchPref, selectPref, initializeSelectedData } = useContext(SearchContext);
+  const { searchPref, selectPref } = useContext(SearchContext);
   const { allData, results, getResults, getClusterOfPref } =
     useContext(APIContext);
 
@@ -76,13 +76,7 @@ const SearchField = () => {
     getResults();
   }, []);
 
-  useEffect(() => {
-    localStorage.setItem('prefOfOrigin', JSON.stringify(searchPref.prefOfOrigin))
-    localStorage.setItem('cityOfOrigin', JSON.stringify(searchPref.cityOfOrigin))
-    localStorage.setItem('currentPref', JSON.stringify(searchPref.currentPref))
-  }, [searchPref])
-
-  useEffect(() => {
+  const checkIsSelected = () => {
     if (
       searchPref.prefOfOrigin &&
       searchPref.cityOfOrigin &&
@@ -90,6 +84,10 @@ const SearchField = () => {
     ) {
       setIsSelected(true);
     }
+  }
+
+  useEffect(() => {
+   checkIsSelected();
   }, [searchPref]);
 
   useCallback(() => {
@@ -133,12 +131,12 @@ const SearchField = () => {
       }}
     >
       <Grid item alignSelf="center">
-        <FormControl required>
-          <InputLabel id="origin-of-prefecture">出身の都道府県</InputLabel>
+        <FormControl required> 
+          <InputLabel id="pref-origin">出身の都道府県</InputLabel>
           <Select
-            id="origin-of-prefecture"
             name="prefOfOrigin"
             value={searchPref.prefOfOrigin}
+            id="pref-origin"
             label="出身の都道府県"
             onChange={selectPref}
             sx={{ width: 300 }}
@@ -165,7 +163,7 @@ const SearchField = () => {
             sx={{ width: 300 }}
           >
             {!searchPref.prefOfOrigin ? (
-              <MenuItem>都道府県を選んで下さい</MenuItem>
+              <MenuItem data-testid="option-list">都道府県を選んで下さい</MenuItem>
             ) : (
               selectedCities.map((prefObj) =>
                 prefObj.ward ? (
@@ -189,12 +187,12 @@ const SearchField = () => {
 
       <Grid item alignSelf="center">
         <FormControl required>
-          <InputLabel id="current-prefecture">現在お住みの都道府県</InputLabel>
+          <InputLabel id="current-pref">現在お住みの都道府県</InputLabel>
           <Select
-            id="current-prefecture"
+            id="current-pref"
             name="currentPref"
             value={searchPref.currentPref}
-            label="出身の都道府県"
+            label="現在お住みの都道府県"
             onChange={selectPref}
             sx={{ width: 300 }}
           >

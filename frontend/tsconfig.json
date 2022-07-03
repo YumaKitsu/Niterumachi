@@ -1,7 +1,9 @@
-
 {
   "compilerOptions": {
     "target": "es5",
+    "paths": {
+      "test-utils":["./utils/test-utils"]
+    },
     "lib": [
       "es6",
       "dom",
@@ -26,6 +28,7 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src", "custom.d.ts"
-  ]
+    "src", "custom.d.ts", "jest.setup.ts"
+, "setupTests.ts", "mocks/fileMock.ts"],
+
 }
