@@ -4,6 +4,7 @@ import { Location } from "history";
 import { Grid, Button, Stack, Typography } from "@mui/material";
 import Card from "../components/Card";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import axios from "axios";
 
 interface HotelInfo {
   hotelName: string;
@@ -43,10 +44,7 @@ const Accommodations: React.FC = () => {
   }, []);
 
   const searchHotels = async () => {
-    const response = await fetch(URL);
-    const results = await response.json();
-    console.log(results.hotels);
-    setAccommodationData(results.hotels);
+    await axios.get(URL).then((res) => setAccommodationData(res.data.hotels));
   };
 
   return (
@@ -59,19 +57,27 @@ const Accommodations: React.FC = () => {
       sx={{ pl: { xl: 22, xs: 10 }, pr: { sm: 7 }, mt: 7 }}
     >
       <Grid container item direction="column" sx={{ p: 3 }}>
-        <Button
-          variant="contained"
-          onClick={() => {
-            navigate(-1);
-          }}
-          sx={{ width: 185, fontSize: "1.4rem" }}
-        >
-          <ArrowBackIosIcon sx={{ color: "white" }} />
-          戻る
-        </Button>
-        <Typography variant="h4" sx={{ mt: 9 }}>
-          {accommodationData.length} 件の宿泊施設が見つかりました
-        </Typography>
+        {!accommodationData.length ? (
+          <Typography variant="h4" sx={{ mt: 9 }}>
+            宿泊施設が見つかりませんでした
+          </Typography>
+        ) : (
+          <React.Fragment>
+            <Button
+              variant="contained"
+              onClick={() => {
+                navigate(-1);
+              }}
+              sx={{ width: 185, fontSize: "1.4rem" }}
+            >
+              <ArrowBackIosIcon sx={{ color: "white" }} />
+              戻る
+            </Button>
+            <Typography variant="h4" sx={{ mt: 9 }}>
+              {accommodationData.length} 件の宿泊施設が見つかりました
+            </Typography>
+          </React.Fragment>
+        )}
       </Grid>
 
       {accommodationData.map((data) => (
