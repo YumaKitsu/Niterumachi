@@ -1,10 +1,12 @@
-import { act, screen, waitFor } from "@testing-library/react";
-import { render } from "../../utils/test-utils";
+import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { rest } from "msw";
 import { createMemoryHistory } from "history";
 import { Router } from "react-router-dom";
+import { render } from "../../utils/test-utils";
 import Results from "../Results";
 import SearchField from "../../components/SearchField";
+import { server } from "../../mocks/server";
 
 describe("Results", () => {
   const history = createMemoryHistory();
@@ -111,5 +113,24 @@ describe("Results", () => {
 
       const modalText = await screen.findByText('総人口', {exact: false})
       expect(modalText).toBeInTheDocument()
+  })
+
+  test('renders "検索結果が見つかりませんでした" as text if the results not found', async () => {
+
+    server.use(
+      rest.get('http://127.0.0.1:8000/api/results/:pref/:cluster', (req, res, ctx) => {
+        res(ctx.json({results: []}))
+      })
+    )
+
+    render(
+      <Router location={history.location} navigator={history}>
+        <SearchField />
+        <Results />
+      </Router>
+    );
+
+    expect(await screen.findByText('検索結果が見つかりませんでした')).toBeInTheDocument()
+
   })
 });
