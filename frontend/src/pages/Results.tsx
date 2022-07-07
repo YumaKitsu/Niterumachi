@@ -14,11 +14,13 @@ import {
   TableFooter,
   TablePagination,
 } from "@mui/material";
+  
 import { Link } from "react-router-dom";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import SearchContext from "../contexts/SearchContext";
 import APIContext from "../contexts/APIContext";
 import ResultModal from "../components/ResultModal";
+
 
 const Results = () => {
   const { searchPref, initializeSelectedData } = useContext(SearchContext);

@@ -38,7 +38,8 @@ export const ContextProvider = (props: Props) => {
   });
 
   const selectPref = (e: SelectChangeEvent<string>) => {
-      const { name, value } = e.target;
+
+       const { name, value } = e.target;
        
         setSearchPref((previousData) => {
           return { ...previousData, [name]: value};

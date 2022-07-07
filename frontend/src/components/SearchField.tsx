@@ -8,6 +8,7 @@ import {
   InputLabel,
   FormControl,
   Typography,
+  SelectChangeEvent,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import PrefData from "../models/prefData";
@@ -93,15 +94,9 @@ const SearchField = () => {
    checkIsSelected(); 
   }, [searchPref]);
 
-  useCallback(() => {
-    selectCity();
-  }, [searchPref]);
-
-
   useEffect(() => {
     selectCity();
-  }, [searchPref]);
-
+  }, [searchPref.prefOfOrigin])
 
   const selectCity = useCallback(() => {
     const filterPrefObj = (obj: PrefData) => {
@@ -119,6 +114,7 @@ const SearchField = () => {
     let prefecture = searchPref.currentPref;
     getResults(cluster, prefecture);
   };
+
 
 
 
@@ -173,7 +169,7 @@ const SearchField = () => {
             sx={{ width: 300 }}
           >
             {!searchPref.prefOfOrigin ? (
-              <MenuItem data-testid="option-list">都道府県を選んで下さい</MenuItem>
+              <MenuItem>都道府県を選んで下さい</MenuItem>
             ) : (
               selectedCities.map((prefObj) =>
                 prefObj.ward ? (
