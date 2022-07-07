@@ -15,6 +15,7 @@ import {
   TablePagination,
 } from "@mui/material";
 import { Link } from "react-router-dom";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import SearchContext from "../contexts/SearchContext";
 import APIContext from "../contexts/APIContext";
 import ResultModal from "../components/ResultModal";
@@ -62,7 +63,7 @@ const Results = () => {
       direction="column"
       alignItems="center"
       justifyContent="center"
-      sx={{ gap: { lg: "35px", xs: "20px" }, m: 10 }}
+      sx={{ gap: { lg: "35px", xs: "20px" }, m: 10, pt: 14 }}
     >
       <Stack
         direction="column"
@@ -162,14 +163,15 @@ const Results = () => {
         </Table>
       </TableContainer>
 
-      <Link to="/search">
+      <Link to="/search" style={{ textDecoration: 'none' }}>
         <Button
           variant="contained"
           color="secondary"
           size="large"
           onClick={initializeData}
-          sx={{ p: "1rem" }}
+          sx={{ p: "1rem", bgcolor: '#0091ea', color: '#FFFF' }}
         >
+          <ArrowBackIosIcon />
           検索画面に戻る
         </Button>
       </Link>

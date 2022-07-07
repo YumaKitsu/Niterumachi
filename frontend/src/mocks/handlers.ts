@@ -1,4 +1,3 @@
-import createMixins from '@mui/material/styles/createMixins';
 import { rest } from 'msw';
 
 export const handlers = [

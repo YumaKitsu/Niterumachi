@@ -5,7 +5,7 @@ import { Stack, Box, AppBar, Toolbar } from '@mui/material';
 
 const Navbar = () => (
   <Box sx={{ flexGrow: 1 }}>
-  <AppBar position="fixed" sx={{ backgroundColor: '#FFFF' }}>
+  <AppBar position="fixed" elevation={0} sx={{ backgroundColor: 'inherit' }}>
     <Toolbar>
       <Stack   
       direction="row"
@@ -16,12 +16,12 @@ const Navbar = () => (
       sx={{
         pl: 15
       }}>
-      <NavLink to='/' style={{ textDecoration: 'none' }}>Home</NavLink>
-      <a href="/search" style={{ textDecoration: 'none' }}>検索</a>
+      <NavLink to='/' style={{ textDecoration: 'none', fontFamily: 'Kosugi Maru', color: '#eeeeee' }}>ホーム</NavLink>
+      <a href="/search" style={{ textDecoration: 'none', fontFamily: 'Kosugi Maru', color: '#eeeeee' }}>探す</a>
       </Stack>
     </Toolbar>
   </AppBar>
-</Box>
+  </Box>
 );
 
 export default Navbar;

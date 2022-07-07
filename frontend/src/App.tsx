@@ -14,6 +14,7 @@ import Footer from './components/Footer';
 
 import './App.css';
 import logo from "./assets/images/not_found.svg";
+import AboutService from './pages/AboutService';
 
 
 
@@ -21,13 +22,13 @@ import logo from "./assets/images/not_found.svg";
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#4D77FF",
+      main: "#1e88e5",
     },
     secondary: {
       main: "#f3e5f5"
     },
     background: {
-      default: "FFFFFF"
+      default: "#FFFF"
     }
   },
 });
@@ -42,7 +43,9 @@ const App = () => {
         <Navbar />
         <Routes>
 
-          <Route path='/' element={<Home />} />
+          <Route path='/' element={<Home />}>
+            <Route path='/' element={<AboutService />} />
+          </Route>
           <Route path='search' element={<Search />} />
           <Route path='results' element={<Results />} /> 
           <Route path='accommodations' element={<Accommodations />} />
@@ -70,7 +73,7 @@ const App = () => {
               </Stack>
             }
           />
-
+      
         </Routes>
         <Footer />
       </BrowserRouter>
