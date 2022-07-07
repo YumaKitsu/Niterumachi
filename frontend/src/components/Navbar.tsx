@@ -16,8 +16,8 @@ const Navbar = () => (
       sx={{
         pl: 15
       }}>
-      <NavLink to='/' style={{ textDecoration: 'none', fontFamily: 'Kosugi Maru', color: '#eeeeee' }}>ホーム</NavLink>
-      <a href="/search" style={{ textDecoration: 'none', fontFamily: 'Kosugi Maru', color: '#eeeeee' }}>探す</a>
+      <NavLink to='/' style={{ textDecoration: 'none', fontFamily: 'Kosugi Maru', color: '#3e2723' }}>ホーム</NavLink>
+      <a href="/search" style={{ textDecoration: 'none', fontFamily: 'Kosugi Maru', color: '#3e2723' }}>探す</a>
       </Stack>
     </Toolbar>
   </AppBar>

@@ -15,7 +15,7 @@ import {
 import { Link, Outlet } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 import Image from "../assets/images/home-image.jpg";
-import Video from "../assets/video/video0.mp4";
+
 
 const Home = () => {
   let theme = createTheme();
@@ -32,7 +32,7 @@ const Home = () => {
             height="920"
             width="600"
             image={Image}
-            sx={{ opacity: 0.9 }}
+            sx={{ opacity: 0.8 }}
           />
         </Card>
 
