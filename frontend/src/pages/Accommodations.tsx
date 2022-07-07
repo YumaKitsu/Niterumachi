@@ -1,10 +1,14 @@
 import React, { useState, useEffect, useMemo } from "react";
+import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Location } from "history";
-import { Grid, Button, Stack, Typography } from "@mui/material";
-import Card from "../components/Card";
+import { Grid, Button, Typography, CircularProgress, Stack } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import axios from "axios";
+import Card from "../components/Card";
+
+
+
+
 
 interface HotelInfo {
   hotelName: string;
@@ -25,6 +29,7 @@ interface Hotels {
 }
 
 const Accommodations: React.FC = () => {
+  const [isLoading, setIsLoading] = useState(false)
   const location = useLocation();
   const navigate = useNavigate();
   const city = useMemo(() => {
@@ -44,7 +49,12 @@ const Accommodations: React.FC = () => {
   }, []);
 
   const searchHotels = async () => {
-    await axios.get(URL).then((res) => setAccommodationData(res.data.hotels));
+    try {
+      setIsLoading(true)
+      await axios.get(URL).then((res) => setAccommodationData(res.data.hotels));
+    } finally {
+      setIsLoading(false)
+    }
   };
 
   return (
@@ -56,11 +66,17 @@ const Accommodations: React.FC = () => {
       spacing={8}
       sx={{ pl: { xl: 22, xs: 10 }, pr: { sm: 7 }, mt: 7 }}
     >
+      <Grid item alignItems="center" justifyContent="center">
+        {isLoading && <CircularProgress />}
+      </Grid>
       <Grid container item direction="column" sx={{ p: 3 }}>
         {!accommodationData.length ? (
-          <Typography variant="h4" sx={{ mt: 9 }}>
+          <Stack alignItems="center">
+            <Typography variant="h4" sx={{ mt: 9 }}>
             宿泊施設が見つかりませんでした
-          </Typography>
+            </Typography>
+          </Stack>
+          
         ) : (
           <React.Fragment>
             <Button
@@ -100,7 +116,7 @@ const Accommodations: React.FC = () => {
           />
         </Grid>
       ))}
-      <Grid container item sx={{ p: 10 }}>
+      <Grid container item alignItems="center" justifyContent="center" sx={{ p: 10 }}>
         <Button
           variant="contained"
           onClick={() => {

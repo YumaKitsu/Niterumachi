@@ -7,6 +7,7 @@ import {
   MenuItem,
   InputLabel,
   FormControl,
+  Typography,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import PrefData from "../models/prefData";
@@ -67,7 +68,7 @@ const PREFECTURES = [
 const SearchField = () => {
   const [selectedCities, setSelectedCities] = useState<PrefData[]>([]);
   const [isSelected, setIsSelected] = useState(false);
-  const { searchPref, selectPref } = useContext(SearchContext);
+  const { searchPref, selectPref, initializeSelectedData } = useContext(SearchContext);
   const { allData, results, getResults, getClusterOfPref } =
     useContext(APIContext);
 
@@ -83,20 +84,24 @@ const SearchField = () => {
       searchPref.currentPref
     ) {
       setIsSelected(true);
+    } else {
+      setIsSelected(false)
     }
   }
 
   useEffect(() => {
-   checkIsSelected();
+   checkIsSelected(); 
   }, [searchPref]);
 
   useCallback(() => {
     selectCity();
-  }, [searchPref.prefOfOrigin]);
+  }, [searchPref]);
+
 
   useEffect(() => {
     selectCity();
-  }, [searchPref.prefOfOrigin]);
+  }, [searchPref]);
+
 
   const selectCity = useCallback(() => {
     const filterPrefObj = (obj: PrefData) => {
@@ -125,12 +130,14 @@ const SearchField = () => {
       maxWidth="100%"
       height="auto"
       sx={{
-        width: 610,
-        height: 445,
-        padding: "20px",
+        height: 600,
+        padding: "30px",
       }}
     >
-      <Grid item alignSelf="center">
+      <Grid item alignSelf="center" sx={{ p: 2 }}>
+        <Typography mb={1}>
+            出身の都道府県は？
+          </Typography>
         <FormControl required> 
           <InputLabel id="pref-origin">出身の都道府県</InputLabel>
           <Select
@@ -151,7 +158,10 @@ const SearchField = () => {
         </FormControl>
       </Grid>
 
-      <Grid item alignSelf="center">
+      <Grid item alignSelf="center" sx={{ p: 2 }} >
+      <Typography mb={1}>
+            出身の市区町村は？
+          </Typography>
         <FormControl required>
           <InputLabel id="origin-of-city">出身の市区町村</InputLabel>
           <Select
@@ -185,7 +195,10 @@ const SearchField = () => {
         </FormControl>
       </Grid>
 
-      <Grid item alignSelf="center">
+      <Grid item alignSelf="center" sx={{ p: 2 }}>
+      <Typography mb={1}>
+            現在住んでいる都道府県は？
+          </Typography>
         <FormControl required>
           <InputLabel id="current-pref">現在お住みの都道府県</InputLabel>
           <Select
@@ -207,7 +220,7 @@ const SearchField = () => {
       </Grid>
       <Grid item alignSelf="center">
         {isSelected ? (
-          <Link to="/results">
+          <Link to="/results" style={{ textDecoration: 'none' }}>
             <Button
               variant="contained"
               color="primary"

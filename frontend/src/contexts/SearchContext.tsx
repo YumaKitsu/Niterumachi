@@ -3,6 +3,7 @@ import { SelectChangeEvent } from "@mui/material";
 
 
 
+
 interface QueryPref {
   prefOfOrigin: string;
   cityOfOrigin: string;
@@ -38,7 +39,7 @@ export const ContextProvider = (props: Props) => {
 
   const selectPref = (e: SelectChangeEvent<string>) => {
       const { name, value } = e.target;
-
+       
         setSearchPref((previousData) => {
           return { ...previousData, [name]: value};
         });
