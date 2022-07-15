@@ -10,7 +10,7 @@ const Footer = () => {
         <Stack   
         direction="row"
         gap="55px"
-        fontSize="23px"
+        fontSize="20px"
         alignItems="center"
         justifyContent="center"
         sx={{
