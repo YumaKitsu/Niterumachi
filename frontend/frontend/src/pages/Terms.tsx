@@ -7,8 +7,17 @@ import {
   ListItem,
   ListItemText,
 } from "@mui/material";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+
 const Terms = () => {
+  const theme = createTheme({
+    typography: {
+      fontFamily: ["Sawarabi Gothic"].join(","),
+    },
+  });
+
   return (
+    <ThemeProvider theme={theme}>
     <Grid
       container
       direction="column"
@@ -204,6 +213,7 @@ const Terms = () => {
         </List>
       </Box>
     </Grid>
+    </ThemeProvider>
   );
 };
 

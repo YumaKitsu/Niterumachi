@@ -14,82 +14,92 @@ import {
 } from "@mui/material/styles";
 import { Link, Outlet } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
-import Image from "../assets/images/home-image.jpg";
-
+import Video from "../assets/video/home.mp4";
 
 const Home = () => {
-  let theme = createTheme();
+  let theme = createTheme({
+    typography: {
+      fontFamily: [
+        'Hina Mincho'
+      ].join(',')
+    }
+  });
   theme = responsiveFontSizes(theme);
-
 
   return (
     <ThemeProvider theme={theme}>
       <Box>
-        <Card sx={{ width: "100%", height: "auto", position: 'relative' }}>
+        <Card>
           <CardMedia
-            component="img"
-            alt="homepage-image"
-            height="920"
-            width="600"
-            image={Image}
-            sx={{ opacity: 0.8 }}
+            component="video"
+            autoPlay
+            loop
+            src={Video}
+            sx={{ 
+              width: 'auto',
+              minWidth: '100%', 
+              height: '100%', 
+              position: 'relative',
+            }}
           />
         </Card>
-
-
-        <Box sx={{ width: '500', height: '700', backgroundColor: 'rgba(38,50,56,0.5)' }}>
-
-        <Stack
-          direction='column'
-          spacing={{ lg: 10, md: 7, xs: 3 }}
-          alignItems="base-line" 
-          alignSelf="center"
-          sx={{ 
-            p: 10,
-            position: 'absolute', 
-            top: { xl: '42%', lg: '48%', xs: '46%' },
-            left: {xl: '38%', lg: '40%', xs: '50%'},
-            transform: 'translate(-50%, -50%)',
-          }}>
-
-          <Typography
-            variant="h1"
+        <Box
+          sx={{
+            height: "auto",
+          }}
+        >
+          <Stack
+            direction="column"
+            spacing={{ md: 5, xs: 6 }}
+            alignItems="center"
+            alignSelf="center"
             sx={{
-              fontWeight: 800,
-              fontFamily: "Hina Mincho",
-              color: "#311b92",
+              p: 10,
+              position: "absolute",
+              minWidth: '80%',
+              top: { xl: "45%", lg: "45%", xs: "42%" },
+              left: { xl: "30%", lg: "35%", xs: "50%" },
+              transform: "translate(-50%, -50%)",
+            
             }}
           >
-            にてるまち
-          </Typography>
+            <Typography
+              variant="h2"
+              sx={{
+                fontWeight: 800,
+                fontFamily: "Yuji Syuku",
+                color: "#FFFF",
+                mb: 3
+              }}
+            >
+              にてるまち
+            </Typography>
 
-          <Typography
-            variant="h3"
-            sx={{
-              fontFamily: "Hina Mincho",
-              letterSpacing: ".2rem",
-              color: "#5e35b",
-              fontWeight: 700,
-            }}
-          >
-            〜帰省気分を味わう〜
-          </Typography>
+            <Typography
+              variant="h4"
+              sx={{
+                fontFamily: "Yuji Syuku ",
+                letterSpacing: ".2rem",
+                color: "#FFFF",
+                fontWeight: 600,
+              }}
+            >
+              〜帰省気分を味わう〜
+            </Typography>
 
-
-          <Typography 
-              mt={2} 
-              variant="h4" 
-              sx={{ 
-                fontFamily: "Hina Mincho", 
-                color: '#5e35b', 
+            <Typography
+              mt={2}
+              variant="h5"
+              sx={{
+                fontFamily: "Hina Mincho",
+                color: "#FFFF",
                 fontWeight: 700,
-                backgroundColor: 'rgba(132,255,255,0.3)'
-               }}>
+              }}
+            >
               近場にあなたの故郷に似ている町があるかも...
             </Typography>
-          
 
-            <Stack alignItems="flex-start"  alignSelf="center">
+            <Stack alignItems="flex-start" alignSelf="center">
               <Link to="/search" style={{ textDecoration: "none" }}>
                 <Button
                   variant="outlined"
@@ -99,20 +109,20 @@ const Home = () => {
                     width: 170,
                     fontSize: "1.2rem",
                     fontFamily: "Sawarabi Gothic",
-                    color: '#FFFF',
-                    bgcolor: '#ef6c00',
-                    borderRadius: '15px',
-                  }}>
+                    color: "#FFFF",
+                    bgcolor: "#ef6c00",
+                    borderRadius: "15px",
+                  }}
+                >
                   <SearchIcon />
                   検索画面へ
                 </Button>
               </Link>
             </Stack>
-  
-
-        </Stack>
+          </Stack>
         </Box>
       </Box>
+
       <Outlet />
     </ThemeProvider>
   );

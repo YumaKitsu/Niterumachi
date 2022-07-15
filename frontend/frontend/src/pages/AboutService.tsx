@@ -15,7 +15,7 @@ const AboutService = () => {
         spacing={10}
         sx={{  minWidth: 220 }}
       >
-        <Typography variant="h3" mb={5} sx={{ textDecoration: "underline 2px", fontFamily: 'Sawarabi Gothic' }}>
+        <Typography variant="h3" mb={5} sx={{ textDecoration: "underline 2px" }}>
           サービスについて
         </Typography>
 

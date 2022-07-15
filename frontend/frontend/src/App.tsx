@@ -17,8 +17,6 @@ import logo from "./assets/images/not_found.svg";
 import AboutService from './pages/AboutService';
 
 
-
-
 const theme = createTheme({
   palette: {
     primary: {
@@ -31,6 +29,13 @@ const theme = createTheme({
       default: "#FFFF"
     }
   },
+
+  typography: {
+    fontFamily: [
+      'Hina Mincho'
+    ].join(',')
+  }
+
 });
 
 
