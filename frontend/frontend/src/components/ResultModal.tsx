@@ -22,7 +22,7 @@ const ResultModal = (props: PrefData) => {
   const handleClose = () => setOpen(false);
   return (
     <Stack direction="row" spacing={3}>
-      <MuiLink component="button" onClick={handleOpen} sx={{ fontSize: '1rem' }}>
+      <MuiLink component="button" onClick={handleOpen} sx={{ fontSize: '1rem', fontFamily: 'Hina Mincho' }}>
         情報を見る
       </MuiLink>
       <Modal

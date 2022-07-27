@@ -30,7 +30,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['www.niterumachi.com']
 
 
 # Application definition
@@ -88,9 +88,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': env('DATABASE_NAME'),
-        'HOST': 'db',
+        'HOST': env('DATABASE_HOST'),
         'USER': env('DATABASE_USER'),
-        'PASSWORD': env('DATABASE_PASSWORD')
+        'PASSWORD': env('DATABASE_PASSWORD'),
+        'PORT': '3306'
     }
 }
 
