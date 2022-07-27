@@ -58,7 +58,7 @@ const Home = () => {
               p: 10,
               position: "absolute",
               minWidth: '80%',
-              top: { xl: "45%", lg: "45%", xs: "42%" },
+              top: { xl: "50%", lg: "48%", md: '50%', sm: '45%',xs: "60%" },
               left: { xl: "30%", lg: "35%", xs: "50%" },
               transform: "translate(-50%, -50%)",
             
@@ -95,6 +95,7 @@ const Home = () => {
                 fontFamily: "Hina Mincho",
                 color: "#FFFF",
                 fontWeight: 700,
+                textShadow: '0 2px 3px rgba(0, 0, 0, 0.3)'
               }}
             >
               近場にあなたの故郷に似ている町があるかも...
@@ -123,8 +124,9 @@ const Home = () => {
           </Stack>
         </Box>
       </Box>
-
-      <Outlet />
+      <Stack alignItems="center">
+        <Outlet />
+      </Stack>
     </ThemeProvider>
   );
 };

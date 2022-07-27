@@ -37,18 +37,18 @@ export const APIContextProvider = (props: Props) => {
   async function getResults(cluster?: number, prefecture?: string) {
     if (prefecture && (cluster === 0 || cluster)) {
       await axios.get(
-        `http://localhost:8080/api/results/?pref=${prefecture}&cluster=${cluster}`
+        `https://www.niterumachi.com/api/results/?pref=${prefecture}&cluster=${cluster}`
       ).then((res) => setResults(res.data.results))
     } else if (cluster === 0 || cluster) {
         await axios.get(
-        `http://localhost:8080/api/results/?cluster=${cluster}`
+        `https://www.niterumachi.com/api/results/?cluster=${cluster}`
       ).then((res) => setResults(res.data.results))
     } else if (searchPref.prefOfOrigin && searchPref.cityOfOrigin) {
        await axios.get(
-        `http://localhost:8080/api/results/?city=${searchPref.cityOfOrigin}`
+        `https://www.niterumachi.com/api/results/?city=${searchPref.cityOfOrigin}`
       ).then((res) => setResults(res.data.results))
     } else {
-      await axios.get("http://localhost:8080/api/results").then((res) => setAllData(res.data.results))
+      await axios.get("https://www.niterumachi.com/api/results").then((res) => setAllData(res.data.results))
     }
   }
 
