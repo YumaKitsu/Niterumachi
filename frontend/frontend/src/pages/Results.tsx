@@ -109,7 +109,7 @@ const Results = () => {
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((data) => (
                 <TableRow key={data.id}>
-                  <TableCell component="th" scope="row">
+                  <TableCell component="th" scope="row" sx={{ fontWeight: 'bold' }}>
                     {data.prefecture} {data.city} {data.ward && data.ward}
                   </TableCell>
                   <TableCell style={{ width: 160 }} align="right">

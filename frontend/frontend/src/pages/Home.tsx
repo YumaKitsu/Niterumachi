@@ -34,6 +34,7 @@ const Home = () => {
             component="video"
             autoPlay
             loop
+            muted
             src={Video}
             sx={{ 
               width: 'auto',
