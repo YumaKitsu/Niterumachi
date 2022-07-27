@@ -9,12 +9,13 @@ const Footer = () => {
       <Toolbar>
         <Stack   
         direction="row"
-        gap="55px"
-        fontSize="20px"
         alignItems="center"
         justifyContent="center"
         sx={{
-          pl: 15
+          p:'10px',
+          m: 'auto',
+          gap: {xs: '45px', sm: '70px', md: '100px', lg: '150px', xl: '220px'},
+          fontSize: {xs: '15px', sm: '20px'}
         }}>
         <NavLink to='/terms' style={{ textDecoration: 'none', fontFamily: 'Kosugi Maru', color: '#455a64' }}>利用規約</NavLink>
         <NavLink to="/privacy" style={{ textDecoration: 'none', fontFamily: 'Kosugi Maru', color: '#455a64' }}>プライバシーポリシー</NavLink>
