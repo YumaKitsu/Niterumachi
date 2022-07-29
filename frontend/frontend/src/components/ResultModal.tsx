@@ -5,11 +5,11 @@ import PrefData from "../models/prefData";
 
 const style = {
   position: "absolute",
-  top: "50%",
+  top: {xs: '80%', sm: '70%', md: '50%'},
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: 650,
-  maxWidth: '100%',
+  maxWidth: '80%',
   bgcolor: "background.paper",
   borderRadius: "10px",
   boxShadow: "0 0.5px 1.5px 1px rgba(0, 0, 0, 0.5)",
@@ -30,8 +30,10 @@ const ResultModal = (props: PrefData) => {
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="municipality-information"
+        disableScrollLock={false}
+        sx={{ overflow: 'scroll' }}
       >
-        <Box sx={style} >
+        <Box sx={style}>
           <Typography
             id="municipality-information"
             variant="h5"
