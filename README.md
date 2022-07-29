@@ -2,7 +2,7 @@
 
 『にてるまち』は全国約1,900の市区町村を機械学習によって分類し、地元と似てる町を探してくれるサービスです。
 
-[にてるまち](https://niterumachi.com)
+[https://niterumachi.com](https://niterumachi.com)
 
 ## サービスを作った背景
 
