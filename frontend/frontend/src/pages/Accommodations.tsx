@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Location } from "history";
-import { Grid, Button, Typography, CircularProgress, Stack } from "@mui/material";
+import { Grid, Button, Typography, CircularProgress, Stack, Box } from "@mui/material";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import Card from "../components/Card";
 
@@ -41,7 +41,7 @@ const Accommodations: React.FC = () => {
 
     return undefined;
   }, [location]);
-  const URL = `https://app.rakuten.co.jp/services/api/Travel/KeywordHotelSearch/20170426?format=json&keyword=${city}&applicationId=${process.env.REACT_APP_MY_ID}`;
+  const URL = `https://app.rakuten.co.jp/services/api/Travel/KeywordHotelSearch/20170426?format=json&keyword=${city}&applicationId=${process.env.REACT_APP_RAKUTEN_APP_ID}`;
 
   const [accommodationData, setAccommodationData] = useState<Hotels[]>([]);
   useEffect(() => {
@@ -58,13 +58,15 @@ const Accommodations: React.FC = () => {
   };
 
   return (
+    <Box  sx={{m: 'auto', p: '10px'}}>
     <Grid
-      container
-      direction="row"
-      justifyContent="flex-start"
-      alignItems="space-evenly"
-      spacing={8}
-      sx={{ pl: { xl: 22, xs: 10 }, pr: { sm: 7 }, mt: 7 }}
+    container
+    direction="row"
+    justifyContent="flex-start"
+    alignItems="center"
+    spacing={8}
+    // sx={{ pl: { xl: 22, xs: 10 }, pr: { sm: 7 }, mt: 7 }}
+    sx={{mt: 7}}
     >
       <Grid item alignItems="center" justifyContent="center">
         {isLoading && <CircularProgress />}
@@ -77,15 +79,15 @@ const Accommodations: React.FC = () => {
             </Typography>
           </Stack>
           
-        ) : (
-          <React.Fragment>
+          ) : (
+            <React.Fragment>
             <Button
               variant="contained"
               onClick={() => {
                 navigate(-1);
               }}
               sx={{ width: 185, fontSize: "1.4rem" }}
-            >
+              >
               <ArrowBackIosIcon sx={{ color: "white" }} />
               戻る
             </Button>
@@ -98,12 +100,12 @@ const Accommodations: React.FC = () => {
 
       {accommodationData.map((data) => (
         <Grid
-          key={data.hotel[0].hotelBasicInfo.hotelName}
-          item
-          md={4}
-          sm={6}
-          xs={12}
-          sx={{ mb: 8 }}
+        key={data.hotel[0].hotelBasicInfo.hotelName}
+        item
+        md={4}
+        sm={6}
+        xs={12}
+        sx={{ mb: 8 }}
         >
           <Card
             name={data.hotel[0].hotelBasicInfo.hotelName}
@@ -113,7 +115,7 @@ const Accommodations: React.FC = () => {
             access={data.hotel[0].hotelBasicInfo.access}
             image={data.hotel[0].hotelBasicInfo.hotelImageUrl}
             informationUrl={data.hotel[0].hotelBasicInfo.hotelInformationUrl}
-          />
+            />
         </Grid>
       ))}
       <Grid container item alignItems="center" justifyContent="center" sx={{ p: 10 }}>
@@ -123,12 +125,13 @@ const Accommodations: React.FC = () => {
             navigate(-1);
           }}
           sx={{ width: 185, fontSize: "1.4rem" }}
-        >
+          >
           <ArrowBackIosIcon sx={{ color: "white" }} />
           戻る
         </Button>
       </Grid>
     </Grid>
+</Box>
   );
 };
 

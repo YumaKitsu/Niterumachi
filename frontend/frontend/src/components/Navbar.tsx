@@ -33,16 +33,16 @@ const Navbar = () => {
               >
                 ホーム
               </NavLink>
-              <a
-                href="/search"
+              <NavLink 
+                to="/search"
                 style={{
                   textDecoration: "none",
                   fontFamily: "Kosugi Maru",
                   color: "#212121",
                 }}
-              >
+                >
                 探す
-              </a>
+              </NavLink>
             </Stack>
           </Toolbar>
         </AppBar>

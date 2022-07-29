@@ -99,8 +99,8 @@ const Results = () => {
             <TableRow>
               <TableCell>都道府県</TableCell>
               <TableCell style={{ width: 160 }}>統計情報</TableCell>
-              <TableCell style={{ width: 160, paddingRight: 70 }} align="right">
-                宿泊地
+              <TableCell style={{ width: 160 }} align="right">
+                宿泊施設
               </TableCell>
             </TableRow>
           </TableHead>
@@ -145,7 +145,7 @@ const Results = () => {
                         textDecorationColor: "rgba(77, 119, 255, 0.4)",
                       }}
                     >
-                      宿泊地を見る
+                      宿泊施設を見る
                     </Link>
                   </TableCell>
                 </TableRow>
