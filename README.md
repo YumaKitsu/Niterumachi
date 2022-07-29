@@ -51,3 +51,12 @@
     - VPC
     - ALB
 
+- テスト
+  - フロントエンド
+    - testing-library(jest-dom,react,user-event)
+    - jest 28.1.2
+    - msw  0.42.3
+    
+  - バックエンド
+    - TestCase(Django)
+
