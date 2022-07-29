@@ -38,3 +38,16 @@
   - matplotlib 3.5.1
   - scikit-learn 1.0.2
 
+- インフラ・開発環境
+  - Docker
+  - AWS
+    - ECS(Fargate)
+    - ECR
+    - S3
+    - Cloudflont
+    - RDS(MySQL)
+    - Route53
+    - ACM
+    - VPC
+    - ALB
+
