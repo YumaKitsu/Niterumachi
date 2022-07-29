@@ -23,7 +23,18 @@
 ## 使用技術
 
 - フロントエンド
+  - TypeScript
+  - React 18.2.0
+  - mui
+  - Rakuten Travel APIs
 
 - バックエンド
-
+  - Django 4.0.4
+  - Django REST framework 3.13.1
+  
+- 機械学習
+  - pandas 1.4.2
+  - numpy 1.22.3
+  - matplotlib 3.5.1
+  - scikit-learn 1.0.2
 
