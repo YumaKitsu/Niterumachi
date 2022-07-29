@@ -10,12 +10,12 @@
 
 
 
-ホームページ
-***
+##### ホームページ
+
 ![niterumachi-homepage](https://user-images.githubusercontent.com/89641169/181743034-0031faa4-c3be-4a7f-a44d-9565076634a8.png)
 
-リザルトページ
-***
+#### リザルトページ
+
 ![niterumachi-results-page](https://user-images.githubusercontent.com/89641169/181743565-c7b95f76-be27-4b92-af75-1b73eccb0317.png)
 
 
