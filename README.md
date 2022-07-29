@@ -15,3 +15,6 @@
 
 リザルトページ
 ![niterumachi-results-page](https://user-images.githubusercontent.com/89641169/181743565-c7b95f76-be27-4b92-af75-1b73eccb0317.png)
+
+![niterumachi-municipality-information](https://user-images.githubusercontent.com/89641169/181746286-c89b6726-5455-4632-a618-d578fcb04f25.png)
+![niterumachi-accommodation-page](https://user-images.githubusercontent.com/89641169/181746390-8d72a6bf-7605-4657-8865-6f06693bc833.png)
